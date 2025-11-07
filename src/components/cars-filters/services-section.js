@@ -1,0 +1,309 @@
+"use client";
+
+import React from "react";
+import { Box, Typography, Container, Button } from "@mui/material";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Iconify from "src/components/iconify";
+import Link from "next/link";
+
+// Custom styles for the slider
+const customSliderStyles = {
+  ".slick-slide": {
+    padding: "0 8px",
+  },
+  ".slick-dots": {
+    bottom: "-40px",
+  },
+  ".slick-dots li button:before": {
+    color: "#1F2937",
+    opacity: 0.5,
+  },
+  ".slick-dots li.slick-active button:before": {
+    color: "#10B981",
+    opacity: 1,
+  },
+  ".slick-prev, .slick-next": {
+    display: "none !important",
+  },
+};
+
+const services = [
+  {
+    id: 1,
+    question: "Car Broke down?",
+    title: "Call a Mechanic",
+    backgroundImage: "/assets/Call-a-mechanic.png",
+  },
+  {
+    id: 2,
+    question: "Got into an accident!",
+    title: "Towing Service",
+    backgroundImage: "/assets/towing-service.png",
+  },
+  {
+    id: 3,
+    question: "Want a clean car?",
+    title: "Car Detailing",
+    backgroundImage: "/assets/car-studio.png",
+  },
+  {
+    id: 4,
+    question: "Got into an accident!",
+    title: "Towing Service",
+    backgroundImage: "/assets/towing-service.png",
+  },
+];
+
+export default function ServicesSection() {
+  const sliderSettings = {
+    dots: true, // Enable built-in dots
+    infinite: true,
+    speed: 800,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
+    arrows: false, // Hide default arrows
+    fade: false,
+    cssEase: "ease-in-out",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: true,
+          dots: true,
+        },
+      },
+    ],
+  };
+
+  return (
+    <Box
+      sx={{
+        py: 8,
+        position: "relative",
+        background: "linear-gradient(135deg, #F8FAFB 0%, #F0FDF4 50%, #FAF5FF 100%)",
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: "url(/assets/serviceBg.webp)",
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.05,
+          zIndex: 0,
+        }
+      }}>
+      <style>
+        {`
+          .slick-slide {
+            padding: 0 8px;
+          }
+          .slick-dots {
+            bottom: -40px;
+            position: absolute;
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+          }
+          .slick-dots li {
+            margin: 0;
+          }
+          .slick-dots li button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10B981 0%, #9333EA 100%);
+            opacity: 0.4;
+            border: none;
+            padding: 0;
+            font-size: 0;
+            line-height: 0;
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+          .slick-dots li.slick-active button {
+            background: linear-gradient(135deg, #10B981 0%, #9333EA 100%);
+            opacity: 1;
+            transform: scale(1.3);
+          }
+          .slick-dots li button:before {
+            display: none;
+          }
+          .slick-prev, .slick-next {
+            display: none !important;
+          }
+        `}
+      </style>
+      <Container maxWidth="xl">
+        {/* Header */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 6,
+            position: "relative",
+            zIndex: 1,
+          }}>
+          <Box sx={{ 
+            borderBottom: "3px solid transparent",
+            backgroundImage: "linear-gradient(90deg, #10B981 0%, #9333EA 100%)",
+            backgroundOrigin: "border-box",
+            backgroundClip: "border-box",
+            pb: "36px",
+            position: "relative",
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "3px",
+              background: "linear-gradient(90deg, #10B981 0%, #9333EA 100%)",
+              borderRadius: "2px",
+            }
+          }}>
+            <Typography
+              variant="h3"
+              sx={{
+                background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontWeight: "bold",
+                fontSize: { xs: "28px", md: "36px" },
+                mb: 1,
+              }}>
+              Services We Offer
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box sx={{ mb: 4, position: "relative", zIndex: 1 }}>
+          <Slider {...sliderSettings}>
+            {services.map((service) => (
+              <Box key={service.id} sx={{ px: 1 }}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    height: 400,
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    cursor: "pointer",
+                    boxShadow: "0 8px 32px rgba(147, 51, 234, 0.15)",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      transform: "translateY(-8px)",
+                      boxShadow: "0 16px 48px rgba(147, 51, 234, 0.25)",
+                    },
+                  }}>
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundImage: `url(${service.backgroundImage})`,
+                      backgroundSize: "contain",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundColor: "#FFFFFF",
+                    }}
+                  />
+                  
+                  {/* Dark Overlay */}
+                  <Box
+                  
+                  />
+
+                  {/* Question Bubble */}
+                  {/* <Box
+                    sx={{
+                      position: "absolute",
+                      top: 20,
+                      left: 20,
+                      bgcolor: "#fff",
+                      borderRadius: "12px",
+                      px: 2,
+                      py: 1,
+                      backdropFilter: "blur(80px)",
+                    }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "black",
+                        fontWeight: 600,
+                        fontSize: "0.875rem",
+                      }}>
+                      {service.question}
+                    </Typography>
+                  </Box> */}
+
+                  {/* Service Button */}
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: 20,
+                      left: 20,
+                      right: 20,
+                    }}>
+                    <Link
+                      href="https://wa.me/92363330222"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: "inline-block",
+                        textDecoration: "none",
+                        background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                        color: "white",
+                        borderRadius: "14px",
+                        padding: "12px 24px",
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        transition: "all 0.3s ease",
+                        boxShadow: "0 4px 12px rgba(147, 51, 234, 0.3)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = "linear-gradient(135deg, #9333EA 0%, #10B981 100%)";
+                        e.target.style.transform = "scale(1.05)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = "linear-gradient(135deg, #10B981 0%, #9333EA 100%)";
+                        e.target.style.transform = "scale(1)";
+                      }}>
+                      {service.title}
+                    </Link>
+                  </Box>
+                </Box>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
+      </Container>
+    </Box>
+  );
+}
