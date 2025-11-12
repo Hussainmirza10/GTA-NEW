@@ -4,9 +4,6 @@ import {
   Box,
   Container,
   Typography,
-  Card,
-  CardContent,
-  CardMedia,
   Button,
   Grid,
   Stack,
@@ -19,61 +16,71 @@ import {
   LocalCarWash,
   Support,
 } from "@mui/icons-material";
+import Image from "src/components/image";
 import CarRentSection from "../cars-filters/car-rent";
-import WhoWeAre from "../cars-filters/who-we-are";
+import { useRouter } from "next/navigation";
 
 const Services = () => {
   const services = [
     {
       id: 1,
-      title: "Call a Mechanics",
+      title: "Modify",
       description:
-        "Professional mobile mechanics available 24/7. We come to your location with all necessary tools and equipment to diagnose and fix your vehicle issues on the spot. No need to tow your vehicle - we bring the workshop to you.",
-      image: "/assets/Call-a-mechanic.png",
-      icon: <Build sx={{ fontSize: 30, color: "#4caf50" }} />,
-      features: [
-        "24/7 Emergency Service",
-        "Mobile Workshop",
-        "Professional Mechanics",
-        "On-site Diagnostics",
-        "Quality Guarantee",
-        "No Towing Required",
-      ],
-      responseTime: "15-30 minutes",
+        "Performance upgrades, ECU tuning, aero kits, and bespoke styling packages engineered by our in-house specialists to transform your vehicle.",
+      image: "/assets/mechanicService.png",
+      icon: <Build sx={{ fontSize: 28, color: "#2563EB" }} />,
+      features: ["ECU remapping", "Custom aero kits", "Suspension upgrades", "Carbon and forged components"],
+      responseTime: "Consultation within 24 hrs",
     },
     {
       id: 2,
-      title: "Towing Service",
+      title: "Tow",
       description:
-        "Reliable towing service for all types of vehicles. Whether you're stranded on the road or need vehicle transport, our professional team is ready to help. We handle everything from small cars to large trucks.",
-      image: "/assets/towing-service.png",
-      icon: <DirectionsCar sx={{ fontSize: 30, color: "#4caf50" }} />,
-      features: [
-        "24/7 Emergency Towing",
-        "All Vehicle Types",
-        "GPS Tracking",
-        "Insurance Coverage",
-        "Professional Drivers",
-        "Quick Response Time",
-      ],
-      responseTime: "20-45 minutes",
+        "Rapid-response flatbed and covered transport for supercars, classics, and daily drivers with full insurance coverage.",
+      image: "/assets/towing.webp",
+      icon: <DirectionsCar sx={{ fontSize: 28, color: "#2563EB" }} />,
+      features: ["24/7 recovery", "Covered transport", "GPS-tracked fleet", "Multi-vehicle capability"],
+      responseTime: "Dispatched in 20-45 mins",
     },
     {
       id: 3,
+      title: "Installation",
+      description:
+        "Certified technicians fit performance parts, electronics, and protection packages with manufacturer-backed warranties.",
+      image: "/assets/engine-designer.jpeg",
+      icon: <Build sx={{ fontSize: 28, color: "#2563EB" }} />,
+      features: ["OEM & aftermarket", "In-house fabrication", "Electronics calibration", "Ceramic & PPF"],
+      responseTime: "Same-day appointments",
+    },
+    {
+      id: 4,
       title: "Car Studio",
       description:
-        "Premium car detailing and studio services for all types of vehicles. From basic wash to complete detailing, ceramic coating, and paint protection - we make your car look brand new. Professional care for your vehicle's appearance.",
+        "Concours-level detailing, paint correction, ceramic coatings, and interior rejuvenation tailored to your schedule.",
       image: "/assets/car-studio.png",
-      icon: <LocalCarWash sx={{ fontSize: 30, color: "#4caf50" }} />,
-      features: [
-        "Premium Detailing",
-        "Ceramic Coating",
-        "Paint Protection",
-        "Interior Deep Clean",
-        "Express Services",
-        "Professional Finish",
-      ],
-      responseTime: "Same Day",
+      icon: <LocalCarWash sx={{ fontSize: 28, color: "#2563EB" }} />,
+      features: ["Multi-stage correction", "Ceramic protection", "Interior deep clean", "Show-car finishing"],
+      responseTime: "Detailing slots daily",
+    },
+    {
+      id: 5,
+      title: "Mechanical",
+      description:
+        "Dealer-grade diagnostics, preventative maintenance, and complex repairs delivered by master technicians.",
+      image: "/assets/mechanicService.png",
+      icon: <Build sx={{ fontSize: 28, color: "#2563EB" }} />,
+      features: ["Computer diagnostics", "Engine & driveline", "Fluid services", "Performance health checks"],
+      responseTime: "Workshop booking within 24 hrs",
+    },
+    {
+      id: 6,
+      title: "Call a Mechanic",
+      description:
+        "Mobile technicians arrive with a full toolkit to resolve roadside issues, perform inspections, and get you moving fast.",
+      image: "/assets/Call-a-mechanic.png",
+      icon: <Support sx={{ fontSize: 28, color: "#2563EB" }} />,
+      features: ["Roadside diagnostics", "Battery & tyre support", "Fluid top-ups", "On-location repairs"],
+      responseTime: "Technician ETA 30 mins",
     },
   ];
 
@@ -83,288 +90,556 @@ const Services = () => {
     window.open(whatsappUrl, "_blank");
   };
 
+  const router = useRouter();
+
+  const tileRoutes = {
+    modify: "/services/modify",
+    tow: "/services/tow",
+    installation: "/services/installation",
+    "call a mechanic": "/services/call-a-mechanic",
+    mechanical: "/services/mechanical",
+    "car studio": "/services/car-studio",
+  };
+
+  const handleTileClick = (key, title) => {
+    const target = tileRoutes[key];
+    if (target) {
+      router.push(target);
+      return;
+    }
+    handleWhatsAppClick(title);
+  };
   return (
+    <Box sx={{ backgroundColor: "#F8FAFC" }}>
+      {/* Hero */}
     <Box
       sx={{
-        backgroundColor: "#000000",
-        minHeight: "100vh",
-      }}>
-      <WhoWeAre />
-      <Box sx={{ py: 8 }}>
+          background:
+            "linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(191, 219, 254, 0.24) 40%, rgba(249, 250, 251, 1) 100%)",
+          py: { xs: 8, md: 12 },
+        }}
+      >
       <Container maxWidth="xl">
-        {/* Header Section */}
-        <Box textAlign="center" mb={8}>
+          <Grid container spacing={{ xs: 6, md: 10 }} alignItems="center">
+            <Grid item xs={12} md={6}>
+              <Stack spacing={3}>
           <Typography
-            variant="h2"
-            component="h1"
-            gutterBottom
+                  variant="overline"
             sx={{
-              fontWeight: 800,
-              color: "#4caf50",
-              mb: 3,
-              fontSize: { xs: "2.5rem", md: "4rem" },
-            }}>
-            Our Premium Services
+                    letterSpacing: 4,
+                    fontWeight: 700,
+                    color: "#2563EB",
+                  }}
+                >
+                  Signature Services
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              maxWidth: 700,
-              mx: "auto",
-              mb: 6,
-              color: "#ffffff",
-              opacity: 0.9,
-              lineHeight: 1.6,
-            }}>
-            Professional automotive services delivered with excellence. We're
-            here to keep your vehicle running smoothly and looking great.
-          </Typography>
-
-          {/* Contact Info Banner */}
-          {/* <Paper
-            elevation={0}
-            sx={{
-              p: 4,
-              backgroundColor: "rgba(0, 255, 136, 0.1)",
-              border: "2px solid #00ff88",
-              borderRadius: 3,
-              maxWidth: 500,
-              mx: "auto",
-              backdropFilter: "blur(10px)",
-            }}>
-            <Stack
-              direction="row"
-              spacing={3}
-              alignItems="center"
-              justifyContent="center">
-              <Support sx={{ fontSize: 40, color: "#00ff88" }} />
-              <Box>
                 <Typography
-                  variant="h6"
-                  sx={{ fontWeight: 700, color: "#00ff88" }}>
-                  Need Help?
+                  variant="h2"
+                  sx={{
+                    fontWeight: 800,
+                    fontSize: { xs: "2.6rem", md: "3.5rem" },
+                    color: "#111827",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  Concierge Care for Every Drive
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "#ffffff", opacity: 0.8 }}>
-                  Contact us anytime for assistance
-                </Typography>
-              </Box>
-            </Stack>
-          </Paper> */}
-        </Box>
-
-        {/* Services Grid */}
-        <Grid container spacing={4}>
-          {services.map((service) => (
-            <Grid item xs={12} md={4} key={service.id}>
-              <Card
-                sx={{
-                  height: "100%",
-                  borderRadius: 3,
-                  overflow: "hidden",
-                  transition: "all 0.4s ease",
-                  backgroundColor: "transparent",
-                  border: "1px solid #4caf50",
-                }}>
-                {/* Service Image */}
-                <CardMedia
-                  component="img"
-                  height="320px"
-                  // cover={true}
-                  image={service.image}
-                  alt={service.title}
                   sx={{
-                    position: "relative",
-                    objectFit: "contain",
+                    color: "#4B5563",
+                    fontSize: { xs: "1.05rem", md: "1.1rem" },
+                    maxWidth: 540,
                   }}
-                />
-
-                {/* Service Icon Overlay */}
-                {/* <Box
+                >
+                  From emergency roadside response to show-car detailing, our specialists
+                  curate every experience to keep your vehicle performing and presenting at its best.
+                </Typography>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <Button
+                    variant="contained"
+                    startIcon={<WhatsApp />}
+                    onClick={() => handleWhatsAppClick("concierge services")}
+                    sx={{
+                      backgroundColor: "#111827",
+                      color: "#FFFFFF",
+                      px: 4,
+                      py: 1.4,
+                      borderRadius: "999px",
+                      fontWeight: 700,
+                      boxShadow: "0 14px 32px rgba(17, 24, 39, 0.25)",
+                      "&:hover": { backgroundColor: "#000" },
+                    }}
+                  >
+                    Talk to Concierge
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleWhatsAppClick("service quote")}
+                    sx={{
+                      borderRadius: "999px",
+                      px: 4,
+                      py: 1.4,
+                      fontWeight: 600,
+                      borderColor: "rgba(17, 24, 39, 0.4)",
+                      color: "#111827",
+                      "&:hover": {
+                        borderColor: "#111827",
+                        backgroundColor: "rgba(17, 24, 39, 0.08)",
+                      },
+                    }}
+                  >
+                    Request a Quote
+                  </Button>
+                </Stack>
+            </Stack>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  position: "relative",
+                  borderRadius: "40px",
+                  overflow: "hidden",
+                  height: { xs: 260, md: 360 },
+                  boxShadow: "0 30px 70px rgba(15, 23, 42, 0.25)",
+                }}
+              >
+                <Image
+                  alt="Service banner"
+                  src="/assets/service banner.jpg"
                   sx={{
                     position: "absolute",
-                    top: 20,
-                    right: 20,
-                    backgroundColor: "transparent",
-                    borderRadius: "50%",
-                    p: 2,
-                    // backdropFilter: "blur(10px)",
-                    border: "1px solid #4caf50",
-                  }}>
-                  {service.icon}
-                </Box> */}
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    backgroundColor: "#0F172A",
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+        </Box>
 
-                <CardContent sx={{ p: 4 }}>
-                  <Box sx={{ mb: 3 }}>
-                    <Typography
-                      variant="h4"
-                      component="h3"
-                      gutterBottom
+      {/* Forza-style Tile Grid */}
+      <Box
+                sx={{
+          position: "relative",
+          py: { xs: 6, md: 7 },
+          backgroundColor: "rgba(8, 11, 19, 0.85)",
+                  overflow: "hidden",
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: "url(/assets/background2.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0.65,
+            filter: "none",
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(135deg, rgba(15, 23, 42, 0.55) 0%, rgba(8, 11, 19, 0.6) 50%, rgba(10, 12, 20, 0.55) 100%)",
+          }}
+        />
+        <Container maxWidth="xl">
+          <Box sx={{ position: "relative" }}>
+          <Grid container spacing={1.5}>
+            {[
+              { key: "modify", size: { xs: 12, md: 6 }, title: "Modify", accent: "#FFFFFF", image: "/assets/modify1.jpg", height: { xs: 200, md: 240 } },
+              { key: "tow", size: { xs: 6, md: 3 }, title: "Tow", accent: "#FFFFFF", image: "/assets/towing.jpg" },
+              { key: "installation", size: { xs: 6, md: 3 }, title: "Installation", accent: "#FFFFFF", image: "/assets/installation.jpg" },
+              { key: "call a mechanic", size: { xs: 6, md: 4 }, title: "Call A Mechanic", accent: "#FFFFFF", image: "/assets/callmech.jpg" },
+              { key: "mechanical", size: { xs: 6, md: 4 }, title: "Mechanical", accent: "#FFFFFF", image: "/assets/mechanical.jpg" },
+              { key: "car studio", size: { xs: 12, md: 4 }, title: "Car Studio", accent: "#FFFFFF", image: "/assets/carstudio.jpg", height: { xs: 200, md: 240 } },
+            ].map((tile, index) => (
+              <Grid item {...tile.size} key={tile.key}>
+                <Button
+                  fullWidth
+                  onClick={() => handleTileClick(tile.key, tile.title)}
+                  sx={{
+                    position: "relative",
+                    height: tile.height || { xs: 200, md: 240 },
+                    borderRadius: 0,
+                    backgroundColor: tile.accent,
+                    color:
+                      tile.key === "tow"
+                        ? "#FFFFFF"
+                        : index === 2
+                        ? "#FFFFFF"
+                        : tile.key === "modify"
+                        ? "#111827"
+                        : tile.key === "call a mechanic"
+                        ? "#FFFFFF"
+                        : tile.key === "car studio"
+                        ? "#FFFFFF"
+                        : tile.key === "mechanical"
+                        ? "#FFFFFF"
+                        : tile.key === "installation"
+                        ? "#FFFFFF"
+                        : "#F8FAFC",
+                    textTransform: "none",
+                    fontSize: "1.35rem",
+                    fontWeight: 700,
+                    px: tile.key === "modify" ? 0 : 3,
+                    justifyContent: tile.key === "modify" ? "flex-start" : "flex-start",
+                    alignItems: tile.key === "modify" ? "flex-start" : "flex-start",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
+                    overflow: "hidden",
+                    transition: (theme) =>
+                      theme.transitions.create(["transform", "border"], {
+                        duration: theme.transitions.duration.short,
+                      }),
+                    "&:hover": {
+                      transform: "translateY(-6px)",
+                      borderColor: "rgba(30, 58, 138, 0.45)",
+                    },
+                    "&:hover .tile-overlay": {
+                      opacity: tile.key === "mechanical" ? 0.65 : 0.45,
+                    },
+                    "&:hover .tile-image": {
+                      opacity: tile.key === "mechanical" ? 0.25 : 0.35,
+                    },
+                  }}
+                >
+                  <Box
+                    className="tile-overlay"
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundColor:
+                        tile.key === "call a mechanic" || tile.key === "car studio" || tile.key === "mechanical"
+                          ? "rgba(15, 23, 42, 0.6)"
+                          : tile.key === "tow"
+                          ? "rgba(17, 24, 39, 0.12)"
+                          : "rgba(15, 23, 42, 0.22)",
+                      opacity: tile.key === "car studio" ? 0.1 : tile.key === "mechanical" ? 0.2 : 0,
+                      transition: "opacity 0.35s ease",
+                      zIndex: 1,
+                    }}
+                  />
+                  {tile.key === "modify" ? (
+                    <Box
+                      className="tile-image"
                       sx={{
-                        fontWeight: 700,
-                        color: "#4caf50",
-                        mb: 2,
-                      }}>
-                      {service.title}
+                        position: "absolute",
+                        inset: 0,
+                        backgroundImage: `url(${tile.image})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        opacity: 0.9,
+                        transition: "opacity 0.35s ease",
+                        zIndex: 0,
+                      }}
+                    />
+                  ) : null}
+                  {tile.key === "call a mechanic" ? (
+                    <Box
+                      className="tile-image"
+                      sx={{
+                        position: "absolute",
+                        inset: 0,
+                        backgroundImage: `url(${tile.image})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        opacity: 0.85,
+                        transition: "opacity 0.35s ease",
+                        zIndex: 0,
+                      }}
+                    />
+                  ) : tile.key === "car studio" || tile.key === "mechanical" || tile.key === "installation" || tile.key === "tow" ? (
+                    <Box
+                      className="tile-image"
+                  sx={{
+                    position: "absolute",
+                        inset: 0,
+                        backgroundImage: `url(${tile.image})`,
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        opacity: tile.key === "tow" ? 0.75 : tile.key === "mechanical" ? 0.7 : 0.85,
+                        transition: "opacity 0.35s ease",
+                        zIndex: 0,
+                      }}
+                    />
+                  ) : null}
+                  <Typography
+                    variant="overline"
+                    sx={{
+                      letterSpacing: tile.key === "modify" ? 8 : tile.key === "tow" ? 6 : 6,
+                      fontWeight: 900,
+                      fontSize:
+                        tile.key === "modify"
+                          ? { xs: "3.4rem", md: "4.2rem" }
+                          : tile.key === "call a mechanic"
+                          ? { xs: "2.2rem", md: "2.8rem" }
+                          : tile.key === "car studio" || tile.key === "mechanical" || tile.key === "tow"
+                          ? { xs: "2.4rem", md: "3.1rem" }
+                          : tile.key === "installation"
+                          ? { xs: "2.6rem", md: "3.3rem" }
+                          : "inherit",
+                      position: "relative",
+                      zIndex: 2,
+                      color:
+                        tile.key === "modify"
+                          ? "#FFFFFF"
+                          : tile.key === "call a mechanic"
+                          ? "#FFFFFF"
+                          : tile.key === "tow" || tile.key === "car studio" || tile.key === "mechanical" || tile.key === "installation"
+                          ? "#FFFFFF"
+                          : "inherit",
+                      width:
+                        tile.key === "modify" || tile.key === "call a mechanic" || tile.key === "tow" || tile.key === "car studio" || tile.key === "mechanical" || tile.key === "installation"
+                          ? "100%"
+                          : "auto",
+                      textAlign:
+                        tile.key === "modify"
+                          ? "left"
+                          : tile.key === "call a mechanic"
+                          ? "left"
+                          : tile.key === "tow" || tile.key === "car studio" || tile.key === "mechanical" || tile.key === "installation"
+                          ? "left"
+                          : "inherit",
+                      px:
+                        tile.key === "modify"
+                          ? { xs: 1.5, md: 2 }
+                          : tile.key === "call a mechanic" || tile.key === "tow" || tile.key === "car studio" || tile.key === "mechanical" || tile.key === "installation"
+                          ? { xs: 1.5, md: 2 }
+                          : 0,
+                      pt:
+                        tile.key === "modify"
+                          ? { xs: 1.5, md: 2 }
+                          : tile.key === "call a mechanic" || tile.key === "tow" || tile.key === "car studio" || tile.key === "mechanical" || tile.key === "installation"
+                          ? { xs: 1.5, md: 2 }
+                          : 0,
+                      lineHeight: tile.key === "call a mechanic" ? 1.05 : 1.2,
+                      textTransform: tile.key === "call a mechanic" ? "none" : "uppercase",
+                    }}
+                  >
+                    {tile.key === "call a mechanic" ? (
+                      <>
+                        <span style={{ display: "block" }}>CALL A</span>
+                        <span style={{ display: "block" }}>MECHANIC</span>
+                      </>
+                    ) : tile.key === "car studio" ? (
+                      <>
+                        <span style={{ display: "block" }}>CAR</span>
+                        <span style={{ display: "block" }}>STUDIO</span>
+                      </>
+                    ) : tile.key === "mechanical" ? (
+                      <span style={{ display: "block" }}>MECHANICAL</span>
+                    ) : tile.key === "installation" ? (
+                      <span style={{ display: "block" }}>INSTALLATION</span>
+                    ) : tile.key === "tow" ? (
+                      <span style={{ display: "block" }}>TOWING</span>
+                    ) : (
+                      tile.title.toUpperCase()
+                    )}
+                  </Typography>
+                  {tile.key !== "modify" && tile.key !== "call a mechanic" && tile.key !== "tow" && tile.key !== "car studio" && tile.key !== "mechanical" && tile.key !== "installation" && (
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mt: 1,
+                        color: "rgba(248, 250, 252, 0.8)",
+                        maxWidth: 220,
+                        position: "relative",
+                        zIndex: 1,
+                      }}
+                    >
+                      {services.find((service) => service.title.toLowerCase().includes(tile.key))?.description ||
+                        "Tap to connect with our team."}
+                    </Typography>
+                  )}
+                </Button>
+              </Grid>
+            ))}
+          </Grid>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* Services Overview */}
+      <Container maxWidth="xl" sx={{ py: { xs: 6, md: 8 } }}>
+        <Stack spacing={1.5} alignItems="center" sx={{ mb: { xs: 5, md: 7 } }}>
+          <Typography variant="overline" sx={{ letterSpacing: 4, color: "#2563EB", fontWeight: 700 }}>
+            Tailored Programs
+          </Typography>
+          <Typography
+            variant="h3"
+            sx={{ fontWeight: 800, color: "#111827", textAlign: "center", maxWidth: 640 }}
+          >
+            Services engineered to keep you moving
                     </Typography>
                     <Typography
                       variant="body1"
+            sx={{ color: "#4B5563", maxWidth: 680, textAlign: "center" }}
+          >
+            Select from our most-requested concierge offerings. Every package is backed by certified experts,
+            transparent pricing, and rapid response support.
+          </Typography>
+        </Stack>
+
+        <Grid container spacing={{ xs: 3, md: 4 }}>
+          {services.map((service) => {
+            const count = service.features.length;
+            return (
+              <Grid item xs={12} md={4} key={service.id}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    height: "100%",
+                    borderRadius: 4,
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid rgba(17, 24, 39, 0.08)",
+                    boxShadow: "0 18px 45px rgba(15, 23, 42, 0.08)",
+                    overflow: "hidden",
+                    transition: (theme) =>
+                      theme.transitions.create(["transform", "box-shadow", "border"], {
+                        duration: theme.transitions.duration.short,
+                      }),
+                    "&:hover": {
+                      transform: "translateY(-8px)",
+                      boxShadow: "0 24px 55px rgba(37, 99, 235, 0.2)",
+                      border: "1px solid rgba(37, 99, 235, 0.35)",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: "relative",
+                      width: "100%",
+                      paddingTop: "60%",
+                    }}
+                  >
+                    <Box
                       sx={{
-                        mb: 3,
-                        lineHeight: 1.7,
-                        color: "#ffffff",
-                        opacity: 0.9,
-                        fontSize: "1.1rem",
-                      }}>
-                      {service.description}
-                    </Typography>
+                        position: "absolute",
+                        inset: 0,
+                        backgroundImage: `url(${service.image})`,
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                      }}
+                    />
                   </Box>
 
-                  {/* Features */}
-                  <Box sx={{ mb: 4 }}>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 600,
-                        mb: 2,
-                        color: "#4caf50",
-                        textTransform: "uppercase",
-                        letterSpacing: "1px",
-                      }}>
-                      What's Included:
+                  <Box sx={{ p: { xs: 3, md: 4 }, display: "flex", flexDirection: "column", gap: 3, flexGrow: 1 }}>
+                    <Stack spacing={1.5}>
+                      <Stack direction="row" spacing={1.5} alignItems="center">
+                        {service.icon}
+                        <Typography variant="h5" sx={{ fontWeight: 700, color: "#111827" }}>
+                          {service.title}
+                        </Typography>
+                      </Stack>
+                      <Typography variant="body2" sx={{ color: "#4B5563", lineHeight: 1.7 }}>
+                        {service.description}
+                      </Typography>
+                      <Typography variant="caption" sx={{ fontWeight: 600, color: "#2563EB" }}>
+                        Typical response: {service.responseTime}
                     </Typography>
-                    <Stack spacing={2}>
-                      {service.features.map((feature, index) => (
-                        <Box
-                          key={index}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 2,
-                          }}>
+                    </Stack>
+
+                    <Stack spacing={1.5}>
+                      {service.features.slice(0, count).map((feature, index) => (
+                        <Stack direction="row" spacing={1.5} alignItems="center" key={index}>
                           <Box
                             sx={{
                               width: 8,
                               height: 8,
                               borderRadius: "50%",
-                              backgroundColor: "#4caf50",
-                              boxShadow: "0 0 10px rgba(0, 255, 136, 0.5)",
+                              backgroundColor: "#2563EB",
+                              boxShadow: "0 0 12px rgba(37, 99, 235, 0.45)",
                             }}
                           />
-                          <Typography
-                            variant="body1"
-                            sx={{
-                              color: "#ffffff",
-                              opacity: 0.9,
-                              fontWeight: 500,
-                            }}>
+                          <Typography variant="body2" sx={{ color: "#1F2937", fontWeight: 500 }}>
                             {feature}
                           </Typography>
-                        </Box>
+                        </Stack>
                       ))}
                     </Stack>
-                  </Box>
 
-                  {/* Action Button */}
                   <Button
                     variant="contained"
-                    fullWidth
                     startIcon={<WhatsApp />}
                     onClick={() => handleWhatsAppClick(service.title)}
                     sx={{
-                      backgroundColor: "#4caf50",
-                      color: "#fff",
-                      py: 2,
-                      fontWeight: 500,
-                      fontSize: "1.1rem",
-                      textTransform: "uppercase",
-
-                      borderRadius: 2,
-                      "&:hover": {
-                        backgroundColor: "#4caf50",
-                      },
-                    }}>
-                    Contact on WhatsApp
+                        mt: "auto",
+                        backgroundColor: "#111827",
+                        color: "#FFFFFF",
+                        py: 1.4,
+                        fontWeight: 600,
+                        borderRadius: "999px",
+                        "&:hover": { backgroundColor: "#000" },
+                      }}
+                    >
+                      Book via WhatsApp
                   </Button>
-                </CardContent>
-              </Card>
+                  </Box>
+                </Paper>
             </Grid>
-          ))}
+            );
+          })}
         </Grid>
-        
-        {/* Bottom CTA Section */}
-        {/* <Box
-          sx={{
-            mt: 10,
-            p: 6,
-            backgroundColor: "rgba(0, 255, 136, 0.1)",
-            border: "1px solid #4caf50",
-            borderRadius: 4,
-            textAlign: "center",
-            backdropFilter: "blur(10px)",
-          }}>
-          <Typography
-            variant="h3"
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-              color: "#00ff88",
-              mb: 3,
-            }}>
-            Ready to Get Started?
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              mb: 4,
-              color: "#ffffff",
-              opacity: 0.9,
-              maxWidth: 600,
-              mx: "auto",
-            }}>
-            Contact us now for a free consultation and quote. Our team is ready
-            to help you!
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            startIcon={<WhatsApp />}
-            onClick={() => handleWhatsAppClick("services")}
-            sx={{
-              backgroundColor: "#00ff88",
-              color: "#000000",
-              px: 3,
-              py: 2,
-              fontSize: "1rem",
-              fontWeight: 600,
-              letterSpacing: "2px",
-              borderRadius: "14px",
-              "&:hover": {
-                backgroundColor: "#4caf50",
-              },
-              transition: "all 0.3s ease",
-            }}>
-            Contact Us on WhatsApp
-          </Button>
-        </Box> */}
       </Container>
 
-      {/* CSS Animation for pulse effect */}
-      <style jsx>{`
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.7;
-            transform: scale(1.1);
-          }
-        }
-      `}</style>
-      </Box>
+      {/* Support CTA */}
+      <Container maxWidth="xl" sx={{ pb: { xs: 6, md: 8 } }}>
+        <Paper
+          elevation={0}
+          sx={{
+            borderRadius: 5,
+            px: { xs: 4, md: 8 },
+            py: { xs: 5, md: 7 },
+            background:
+              "linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(191, 219, 254, 0.25))",
+          }}
+        >
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={{ xs: 3, md: 5 }}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Stack spacing={1.5} textAlign={{ xs: "center", md: "left" }}>
+              <Typography variant="h4" sx={{ fontWeight: 800, color: "#1E3A8A" }}>
+                Need the team on stand-by?
+          </Typography>
+              <Typography variant="body1" sx={{ color: "#1F2937", maxWidth: 520 }}>
+                Our concierge managers are available around the clock to coordinate
+                roadside support, vehicle swaps, or custom detailing packages.
+          </Typography>
+            </Stack>
+          <Button
+            variant="contained"
+              startIcon={<Support />}
+              onClick={() => handleWhatsAppClick("support team")}
+            sx={{
+                backgroundColor: "#111827",
+                color: "#FFFFFF",
+                px: 4,
+                py: 1.5,
+                borderRadius: "999px",
+                fontWeight: 700,
+                "&:hover": { backgroundColor: "#000" },
+              }}
+            >
+              Contact Support
+          </Button>
+          </Stack>
+        </Paper>
+      </Container>
+
       <CarRentSection />
     </Box>
   );
