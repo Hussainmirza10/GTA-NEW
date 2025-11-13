@@ -44,10 +44,10 @@ export default function GarageView() {
       keywords: ["luxury", "bentley", "mercedes", "premium"],
     },
     {
-      key: "sports",
-      title: "Rent Sports",
-      image: "/assets/supercar-type-v2.webp",
-      keywords: ["sport", "mclaren", "ferrari", "gt"],
+      key: "pickup",
+      title: "Rent Pickup Truck",
+      image: "/assets/pickup-type.webp",
+      keywords: ["pickup", "truck", "raptor", "tundra"],
     },
     {
       key: "suv",

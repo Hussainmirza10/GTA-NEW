@@ -475,13 +475,13 @@ export default function LatestProductsSection({
   })();
 
   const sectionProducts = (() => {
-    if (isShop) return firstTenProducts;
+    if (isShop) return latestProducts.slice(0, 4);
     if (normalizedTitle === "latest chemicals") return latestProducts;
     return firstTenProducts;
   })();
 
   const sectionLoading = (() => {
-    if (isShop) return loadingFirstTen;
+    if (isShop) return loading;
     if (normalizedTitle === "latest chemicals") return loading;
     return loadingFirstTen;
   })();
