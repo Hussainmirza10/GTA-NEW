@@ -16,31 +16,32 @@ export const metadata = {
 export default function ImportPage() {
   const carTiles = [
     {
-      title: "Porsche 911 Turbo S",
-      subtitle: "Precision engineering with timeless lines.",
-      image:
-        "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80",
-      badge: "Supercar",
+      title: "Ford Raptor",
+      subtitle:
+        "Twin-turbo Baja legend imported with Fox Live Valve suspension, long-travel arms, and desert-ready extras.",
+      image: "/assets/fordraptorP.jpg",
+      badge: "Off-Road",
     },
     {
-      title: "Bugatti Chiron",
-      subtitle: "Top-tier performance with bespoke craftsmanship.",
-      image:
-        "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=1200&q=80",
-      badge: "Hypercar",
+      title: "Toyota Tundra",
+      subtitle:
+        "TRD Pro adventure spec featuring overland armor, snorkel intake, and premium towing and camping upgrades.",
+      image: "/assets/raptorP.jpeg",
+      badge: "Overland",
     },
     {
-      title: "Lamborghini Aventador",
-      subtitle: "Iconic drama with raging V12 power.",
-      image:
-        "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
-      badge: "V12",
+      title: "BMW M4",
+      subtitle:
+        "Competition package coupe with carbon buckets, CSL aero kit, and certified European delivery provenance.",
+      image: "/assets/bmwP.jpg",
+      badge: "Performance",
     },
     {
-      title: "Rolls-Royce Phantom",
-      subtitle: "Opulent presence, serene journeys.",
-      image: "/assets/rr.jpg",
-      badge: "Ultra Luxury",
+      title: "Mercedes C180 Convertible",
+      subtitle:
+        "Elegant AMG-line drop-top, Burmester audio, and bespoke leather trim tailored for year-round city cruising.",
+      image: "/assets/c180P.webp",
+      badge: "Luxury",
     },
   ];
 
@@ -48,7 +49,7 @@ export default function ImportPage() {
     {
       title: "Performance Engines",
       subtitle: "VO6 long-blocks and crate motors, dyno-tested with warranty support and installation guidance.",
-      image: "/assets/engine-designer.jpeg",
+      image: "/assets/engine.jpg",
       badge: "Power",
     },
     {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Box, Container, Typography, Grid, Card, CardContent, Button } from "@mui/material";
-import { ArrowForward, DirectionsCar, Key, Speed } from "@mui/icons-material";
+import { ArrowForward, DirectionsCar, BuildCircle, ShoppingBag } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { paths } from "src/routes/paths";
 
@@ -10,37 +10,37 @@ const CarCategoriesCards = () => {
 
   const categories = [
     {
-      title: "Used Cars",
-      description: "Quality pre-owned vehicles inspected and verified for your peace of mind",
-      icon: <DirectionsCar sx={{ fontSize: 60 }} />,
-      gradient: "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)",
-      bgColor: "linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)",
-      iconColor: "#F59E0B",
-      image: "/assets/ToyotaCorolla.webp",
-      link: `${paths.cars.root}?category=used`,
-      stats: "500+ Vehicles",
+      title: "Services",
+      description: "Professional maintenance, detailing, installation, and customization under one roof.",
+      icon: <BuildCircle sx={{ fontSize: 60 }} />,
+      gradient: "linear-gradient(135deg, #A855F7 0%, #EC4899 50%, #F97316 100%)",
+      bgColor: "linear-gradient(135deg, #FDE4FF 0%, #FFE4E6 50%, #FFF1F2 100%)",
+      iconColor: "#D946EF",
+      image: "/assets/serviceBg.webp",
+      link: "/services",
+      stats: "12+ Services",
     },
     {
-      title: "Rental Cars",
-      description: "Premium vehicles available for rent - daily, weekly, or monthly packages",
-      icon: <Key sx={{ fontSize: 60 }} />,
+      title: "Cars",
+      description: "Explore our curated fleet of premium vehicles ready for purchase or rent.",
+      icon: <DirectionsCar sx={{ fontSize: 60 }} />,
       gradient: "linear-gradient(135deg, #9333EA 0%, #7E22CE 100%)",
       bgColor: "linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%)",
       iconColor: "#9333EA",
       image: "/assets/KiaCerato.webp",
-      link: paths.rent,
-      stats: "50+ Vehicles",
+      link: paths.cars.root,
+      stats: "500+ Vehicles",
     },
     {
-      title: "New Cars",
-      description: "Brand new vehicles with latest features, technology and full warranty",
-      icon: <Speed sx={{ fontSize: 60 }} />,
+      title: "Products",
+      description: "Shop detailing supplies, accessories, and performance upgrades for your ride.",
+      icon: <ShoppingBag sx={{ fontSize: 60 }} />,
       gradient: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
       bgColor: "linear-gradient(135deg, #F0FDF4 0%, #D1FAE5 100%)",
       iconColor: "#10B981",
-      image: "/assets/raize.webp",
-      link: `${paths.cars.root}?category=new`,
-      stats: "200+ Vehicles",
+      image: "/assets/shopHeroCard.png",
+      link: paths.product.root,
+      stats: "300+ Products",
     },
   ];
 

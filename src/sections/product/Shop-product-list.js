@@ -99,76 +99,7 @@ export default function ShopProductList({
 
   return (
     <>
-      {/* Search and Sort Controls */}
-      <Box sx={{ mb: 3 }}>
-        <Stack
-          spacing={2}
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="space-between"
-          alignItems={{ xs: "stretch", sm: "center" }}
-          sx={{ mb: 3 }}
-        >
-          {/* Search Bar */}
-          <TextField
-            fullWidth
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={handleSearch}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: "text.disabled" }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{
-              maxWidth: { xs: "100%", sm: 300 },
-              "& .MuiOutlinedInput-root": {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                color: "#fff",
-                "& fieldset": {
-                  borderColor: "#4caf50",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#4caf50",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#4caf50",
-                },
-              },
-              "& .MuiInputBase-input": {
-                color: "#fff",
-                "&::placeholder": {
-                  color: "rgba(255, 255, 255, 0.7)",
-                },
-              },
-            }}
-          />
-
-          {/* Sort Options */}
-          <Box sx={{ minWidth: 200 }}>
-            <ProductSort
-              sort={sortBy}
-              onSort={handleSort}
-              sortOptions={PRODUCT_SORT_OPTIONS}
-            />
-          </Box>
-        </Stack>
-
-        {/* Results Count */}
-        <Box sx={{ mb: 2 }}>
-          <Box
-            component="span"
-            sx={{
-              color: "#4caf50",
-              fontWeight: "bold",
-              fontSize: "14px",
-            }}
-          >
-            {filteredAndSortedProducts.length} product{filteredAndSortedProducts.length !== 1 ? 's' : ''} found
-          </Box>
-        </Box>
-      </Box>
+      {/* Search and Sort Controls removed for gradient layout */}
 
       {/* Product Grid */}
       <Box

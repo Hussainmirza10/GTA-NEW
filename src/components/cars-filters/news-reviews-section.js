@@ -34,13 +34,34 @@ const NewsReviewsSection = () => {
     },
   ];
 
+  const rentSectionGradient =
+    "linear-gradient(180deg, rgba(29, 78, 216, 0.95) 0%, rgba(37, 99, 235, 0.7) 40%, rgba(59, 130, 246, 0.32) 70%, rgba(224, 231, 255, 0.12) 100%)";
+
+  const headingStyles = {
+    color: "#000000",
+    fontWeight: 400,
+    fontSize: { xs: "2.5rem", md: "3.5rem" },
+    mb: 2,
+    fontFamily: "'Pricedown', 'Bebas Neue', 'Impact', sans-serif",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+    textShadow: `
+      -2px -2px 0 #FFFFFF,
+      2px -2px 0 #FFFFFF,
+      -2px 2px 0 #FFFFFF,
+      2px 2px 0 #FFFFFF,
+      0 0 12px rgba(255, 255, 255, 0.9)
+    `,
+  };
+
   return (
     <Box
       sx={{
         py: { xs: 8, md: 12 },
-        background: "linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%)",
+        background: rentSectionGradient,
         position: "relative",
         overflow: "hidden",
+        color: "rgba(17, 24, 39, 0.9)",
       }}>
       {/* Decorative Elements */}
       <Box
@@ -51,7 +72,7 @@ const NewsReviewsSection = () => {
           width: 300,
           height: 300,
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(96, 165, 250, 0.28) 0%, transparent 70%)",
           filter: "blur(40px)",
           pointerEvents: "none",
         }}
@@ -78,29 +99,14 @@ const NewsReviewsSection = () => {
         >
           <Typography
             variant="h2"
-            sx={{
-              fontWeight: 400,
-              color: "#000000",
-              mb: 2,
-              fontSize: { xs: "2.5rem", md: "3.5rem" },
-              fontFamily: "'Pricedown', 'Bebas Neue', 'Impact', sans-serif",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              textShadow: `
-                -2px -2px 0 #FFFFFF,
-                2px -2px 0 #FFFFFF,
-                -2px 2px 0 #FFFFFF,
-                2px 2px 0 #FFFFFF,
-                0 0 10px rgba(255, 255, 255, 0.8)
-              `,
-            }}
+            sx={headingStyles}
           >
             News, Reviews & Discussions
           </Typography>
           <Typography
             variant="h6"
             sx={{
-              color: "#000000",
+              color: "rgba(0, 0, 0, 0.85)",
               maxWidth: 700,
               mx: "auto",
               fontWeight: 500,
@@ -300,18 +306,18 @@ const NewsReviewsSection = () => {
               py: 1.5,
               fontSize: "1rem",
               fontWeight: 700,
-              borderColor: "#9333EA",
-              color: "#9333EA",
+              borderColor: "rgba(59, 130, 246, 0.9)",
+              color: "rgba(59, 130, 246, 0.9)",
               borderWidth: 2,
               borderRadius: 2,
               textTransform: "none",
               transition: "all 0.3s ease",
               "&:hover": {
                 borderWidth: 2,
-                bgcolor: "#9333EA",
+                bgcolor: "rgba(59, 130, 246, 0.95)",
                 color: "white",
                 transform: "translateY(-2px)",
-                boxShadow: "0 8px 25px rgba(147, 51, 234, 0.3)",
+                boxShadow: "0 8px 25px rgba(59, 130, 246, 0.35)",
               },
             }}
           >

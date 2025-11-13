@@ -195,23 +195,90 @@ export default function CarRentSection() {
           )} */}
         </Box>
         <Box sx={{ display: "flex", flexDirection:{xs: "column", md: "row"}, gap: 2, justifyContent: "space-around" }}>
-         <Box sx={{ width: {sm: "100%", md: "50%"}, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-         <Link href="/guard" style={{ textDecoration: "none" , borderRadius: "10px" }}> 
-         <img src="/assets/Security-Guard-3.jpg" alt="rentcar"  height={ isMobile ? 350 : 650} ratio="16/9" />
+         <Box sx={{ width: {sm: "100%", md: "50%"}, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 2 }}>
+         <Link href="/services/modify" style={{ textDecoration: "none", width: "100%" }}>
+           <Box
+             sx={{
+               position: "relative",
+               height: { xs: 320, md: 520 },
+               borderRadius: 4,
+               overflow: "hidden",
+               backgroundColor: "#0f172a",
+               border: '2px solid rgba(37, 99, 235, 0.25)',
+             }}
+           >
+             <Box
+               sx={{
+                 position: "absolute",
+                 inset: 0,
+                 backgroundImage: 'url(/assets/modify1.jpg)',
+                 backgroundSize: 'cover',
+                 backgroundPosition: 'center',
+                 filter: 'brightness(0.78)',
+                 transition: 'transform 0.4s ease',
+               }}
+             />
+             <Box
+               sx={{
+                 position: 'absolute',
+                 inset: 0,
+                 background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.2) 0%, rgba(8, 11, 19, 0.65) 55%, rgba(8, 11, 19, 0.9) 100%)',
+               }}
+             />
+             <Stack
+               spacing={1.5}
+               sx={{
+                 position: 'relative',
+                 zIndex: 1,
+                 height: '100%',
+                 px: { xs: 3, md: 5 },
+                 py: { xs: 4, md: 5 },
+                 justifyContent: 'flex-end',
+               }}
+             >
+               <Typography
+                 variant="overline"
+                 sx={{
+                   letterSpacing: 6,
+                   fontWeight: 900,
+                   fontSize: { xs: '2.6rem', md: '3rem' },
+                   color: '#FFFFFF',
+                 }}
+               >
+                 Exterior
+               </Typography>
+               <Typography
+                 variant="overline"
+                 sx={{
+                   letterSpacing: 5,
+                   fontWeight: 700,
+                   fontSize: { xs: '2.2rem', md: '2.6rem' },
+                   color: '#FFFFFF',
+                 }}
+               >
+                 Modification
+               </Typography>
+               <Typography
+                 variant="body2"
+                 sx={{ color: 'rgba(255, 255, 255, 0.78)', maxWidth: 320 }}
+               >
+                 Performance upgrades, ECU tuning, aero kits, and bespoke styling engineered by in-house specialists.
+               </Typography>
+             </Stack>
+           </Box>
          </Link>
          <Box sx={{
             display: {xs: "none", md: "block"},
-            backgroundImage: 'url(/assets/WhoWeAre.jpeg)',
+            backgroundImage: 'url(/assets/modify1.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            border: '2px solid #25D366',
+            border: '2px solid #2563EB',
             borderRadius: 4,
             p: 6,
-            bgcolor: 'rgba(37, 211, 102, 0.05)',
+            bgcolor: 'rgba(37, 99, 235, 0.08)',
             color: '#fff',
             position: 'relative',
-            mt: 2,
             '&::before': {
               content: '""',
               position: 'absolute',
@@ -219,7 +286,7 @@ export default function CarRentSection() {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              backgroundColor: 'rgba(15, 23, 42, 0.55)',
               borderRadius: 4,
               zIndex: 1
             },
@@ -228,8 +295,8 @@ export default function CarRentSection() {
               zIndex: 2
             }
           }}>
-          <Typography variant="h6" sx={{ color: "#fff", fontSize: { xs: "20px", md: "22px" }, textAlign: "center", mt: 2 }}>
-          At Garage Tuned Autos, our GUARD SQUAD provides highly trained and disciplined security professionals dedicated to protecting your assets and ensuring safety around the clock. Whether it’s event security, personal protection, or property surveillance, our team delivers reliability, professionalism, and peace of mind — always ready to serve with confidence.
+          <Typography variant="h6" sx={{ color: "#fff", fontSize: { xs: "20px", md: "22px" }, textAlign: "center" }}>
+            Dial in aero, forged carbon, and calibrated power with GTA's exterior modification lab. Tap to schedule your bespoke build consultation today.
           </Typography>
           </Box>
          </Box>

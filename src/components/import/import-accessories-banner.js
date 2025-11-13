@@ -19,7 +19,7 @@ import { WhatsApp } from "@mui/icons-material";
 
 // ----------------------------------------------------------------------
 
-export default function ImportDreamBanner() {
+export default function ImportAccessoriesBanner() {
   const [showOverlay, setShowOverlay] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteData, setQuoteData] = useState({
@@ -32,8 +32,9 @@ export default function ImportDreamBanner() {
   });
 
   const handleWhatsAppClick = useCallback(() => {
-    const message = "Hi! I'm interested in importing a car. Can you help me?";
-    const whatsappUrl = `https://wa.me/923263333456?text=${encodeURIComponent(message)}`;
+    const message =
+      "Hi! I'm interested in importing car parts. Can you help me find the parts I need?";
+    const whatsappUrl = `https://wa.me/923263331000?text=${encodeURIComponent(message)}`;
 
     if (typeof window !== "undefined") {
       window.open(whatsappUrl, "_blank");
@@ -45,8 +46,8 @@ export default function ImportDreamBanner() {
       <Box
         sx={{
           width: "100%",
-          mt: { xs: 6, md: "56px" },
-          animation: "fadeInUp 0.8s ease-out",
+          mt: { xs: 4, md: 8 },
+          animation: "fadeInUp 0.8s ease-out 0.2s backwards",
           "@keyframes fadeInUp": {
             "0%": {
               opacity: 0,
@@ -62,16 +63,16 @@ export default function ImportDreamBanner() {
           onMouseEnter={() => setShowOverlay(true)}
           onMouseLeave={() => setShowOverlay(false)}
           sx={{
-            background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+            background: "linear-gradient(135deg, #9333EA 0%, #7E22CE 100%)",
             borderRadius: 4,
             mb: 4,
             overflow: "hidden",
             position: "relative",
-            boxShadow: "0 12px 40px rgba(16, 185, 129, 0.25)",
+            boxShadow: "0 12px 40px rgba(147, 51, 234, 0.25)",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             "&:hover": {
               transform: "translateY(-8px) scale(1.01)",
-              boxShadow: "0 20px 60px rgba(16, 185, 129, 0.4)",
+              boxShadow: "0 20px 60px rgba(147, 51, 234, 0.4)",
             },
             "&::before": {
               content: '""',
@@ -81,13 +82,12 @@ export default function ImportDreamBanner() {
               right: 0,
               bottom: 0,
               background:
-                "linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%)",
+                "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%)",
             },
           }}>
           <CardContent
             sx={{
               p: { xs: 4, md: "32px" },
-              textAlign: "center",
               position: "relative",
               zIndex: 2,
             }}>
@@ -112,13 +112,16 @@ export default function ImportDreamBanner() {
                 }}>
                 <Box
                   component="img"
-                  src="/assets/bugati.png"
-                  alt="Import Car"
+                  src="/assets/car-accessories-png-car-parts-clipart.png"
+                  alt="Car Accessories"
                   sx={{
-                    width: { xs: "100%", md: 560 },
-                    maxWidth: 560,
+                    width: { xs: "100%", md: 520 },
+                    maxWidth: 520,
                     objectFit: "contain",
                     transition: "transform 0.4s ease",
+                    ...(showOverlay && {
+                      transform: "scale(1.05)",
+                    }),
                   }}
                 />
               </Box>
@@ -138,15 +141,15 @@ export default function ImportDreamBanner() {
                     },
                   },
                 }}>
-                <Box>
+                <Box sx={{ textAlign: { xs: "center", md: "left" } }}>
                   <Typography
                     variant="overline"
                     sx={{
-                      color: "#DCFCE7",
+                      color: "#F3E8FF",
                       fontWeight: 700,
                       letterSpacing: 3,
                     }}>
-                    Premium Imports
+                    Genuine Parts
                   </Typography>
                   <Typography
                     variant="h2"
@@ -168,28 +171,28 @@ export default function ImportDreamBanner() {
                         0 0 10px rgba(0, 0, 0, 0.8)
                       `,
                     }}>
-                    Import Your Dream Car
+                    Import Your Desire Accessories
                   </Typography>
                   <Typography
                     variant="h6"
                     sx={{
-                      color: "#F0FDF4",
+                      color: "#FAF5FF",
                       fontSize: { xs: "1rem", md: "1.1rem" },
                       fontWeight: 400,
-                      maxWidth: 520,
-                      mx: "auto",
+                      maxWidth: 500,
+                      mx: { xs: "auto", md: 0 },
                       lineHeight: 1.6,
                     }}>
-                    From luxury supercars to everyday favorites, our experts
-                    handle sourcing, inspections, customs, and delivery while you
-                    track progress at every milestone.
+                    From genuine OEM parts to aftermarket upgrades, we find and
+                    import the exact accessories you need, backed by quality
+                    checks and transparent logistics.
                   </Typography>
                 </Box>
 
                 <Stack
                   direction={{ xs: "column", sm: "row" }}
                   spacing={2}
-                  justifyContent="center"
+                  justifyContent={{ xs: "center", md: "flex-start" }}
                   alignItems="center">
                   <Button
                     variant="contained"
@@ -197,9 +200,9 @@ export default function ImportDreamBanner() {
                     startIcon={<WhatsApp sx={{ fontSize: 28 }} />}
                     onClick={handleWhatsAppClick}
                     sx={{
-                      background: "#FFFFFF",
-                      border: "2px solid #FFFFFF",
-                      color: "#10B981",
+                      background: "#16A34A",
+                      border: "2px solid transparent",
+                      color: "#FFFFFF",
                       px: 4,
                       py: 2,
                       fontSize: "16px !important",
@@ -208,35 +211,37 @@ export default function ImportDreamBanner() {
                       borderRadius: "50px",
                       minWidth: 250,
                       whiteSpace: "nowrap",
-                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transition: "all 0.3s ease",
                       "&:hover": {
-                        background: "transparent",
-                        color: "#FFFFFF",
+                        background: "#15803D",
+                        boxShadow: "0 8px 30px rgba(22, 163, 74, 0.4)",
                         transform: "scale(1.08) rotate(-2deg)",
-                        boxShadow: "0 8px 30px rgba(255, 255, 255, 0.3)",
                       },
                     }}>
-                    Book an appointment
+                    Book Quick Consult
                   </Button>
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     size="large"
-                    href="/contact-us"
+                    onClick={() => setQuoteOpen(true)}
                     sx={{
+                      background: "linear-gradient(135deg, #7C3AED 0%, #9333EA 100%)",
                       color: "#FFFFFF",
-                    borderColor: "rgba(255, 255, 255, 0.6)",
-                    px: 4,
-                    py: 2,
-                    borderRadius: "50px",
-                    fontSize: "16px !important",
-                    fontWeight: 600,
-                    minWidth: 250,
+                      px: 4,
+                      py: 2,
+                      borderRadius: "50px",
+                      fontSize: "16px !important",
+                      fontWeight: 700,
+                      minWidth: 250,
+                      textTransform: "uppercase",
+                      boxShadow: "0 14px 32px rgba(124, 58, 237, 0.35)",
                       "&:hover": {
-                        borderColor: "#FFFFFF",
-                        backgroundColor: "rgba(255, 255, 255, 0.12)",
+                        background: "linear-gradient(135deg, #6D28D9 0%, #7C3AED 100%)",
+                        boxShadow: "0 18px 40px rgba(124, 58, 237, 0.45)",
+                        transform: "scale(1.05)",
                       },
                     }}>
-                    Talk to a Specialist
+                    Get a Quote
                   </Button>
                 </Stack>
               </Stack>
@@ -247,8 +252,7 @@ export default function ImportDreamBanner() {
             sx={{
               position: "absolute",
               inset: 0,
-              background:
-                "rgba(4, 47, 46, 0.85)",
+              background: "rgba(55, 0, 90, 0.78)",
               backdropFilter: "blur(6px)",
               zIndex: 4,
               display: "flex",
@@ -265,10 +269,8 @@ export default function ImportDreamBanner() {
               textAlign="center"
               sx={{
                 maxWidth: 520,
-                color: "#ECFDF5",
-                animation: showOverlay
-                  ? "fadeSlideIn 0.4s ease forwards"
-                  : "none",
+                color: "#F5F3FF",
+                animation: showOverlay ? "fadeSlideIn 0.4s ease forwards" : "none",
                 "@keyframes fadeSlideIn": {
                   "0%": { opacity: 0, transform: "translateY(20px)" },
                   "100%": { opacity: 1, transform: "translateY(0)" },
@@ -279,22 +281,21 @@ export default function ImportDreamBanner() {
                 sx={{
                   letterSpacing: 6,
                   fontWeight: 700,
-                  color: "#BBF7D0",
+                  color: "#EDE9FE",
                 }}>
-                Concierge Guidance
+                Accessories Concierge
               </Typography>
               <Typography variant="h4" sx={{ fontWeight: 800, lineHeight: 1.2 }}>
-                Not sure which car to import next?
+                Tell us what upgrade you need next
               </Typography>
               <Typography
                 variant="body1"
                 sx={{
-                  color: "rgba(236, 253, 245, 0.85)",
+                  color: "rgba(237, 233, 254, 0.88)",
                   lineHeight: 1.6,
                 }}>
-                Share the brands you love and we’ll curate specs, auction history,
-                landed cost estimates, and compliance briefings—all before you lock in
-                your booking.
+                Share part numbers, brands, or goals and we’ll source verified stock, handle consolidation,
+                and deliver door-to-door with real-time updates.
               </Typography>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
@@ -326,6 +327,7 @@ export default function ImportDreamBanner() {
                 <Button
                   variant="contained"
                   size="large"
+                  onClick={() => setQuoteOpen(true)}
                   sx={{
                     background: "linear-gradient(135deg, #7C3AED 0%, #9333EA 100%)",
                     color: "#FFFFFF",
@@ -341,9 +343,7 @@ export default function ImportDreamBanner() {
                       boxShadow: "0 18px 40px rgba(124, 58, 237, 0.45)",
                       transform: "scale(1.05)",
                     },
-                  }}
-                  onClick={() => setQuoteOpen(true)}
-                >
+                  }}>
                   Get a Quote
                 </Button>
               </Stack>
@@ -359,7 +359,7 @@ export default function ImportDreamBanner() {
         fullWidth
         PaperProps={{ sx: { borderRadius: 4, p: { xs: 1, md: 1.5 } } }}
       >
-        <DialogTitle sx={{ fontWeight: 700 }}>Request Import Quote</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700 }}>Request Accessories Quote</DialogTitle>
         <DialogContent dividers sx={{ pt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField
             label="Name"
@@ -410,16 +410,16 @@ export default function ImportDreamBanner() {
           <Button
             variant="contained"
             onClick={() => {
-              const message = `Quote Request:%0AName: ${quoteData.name}%0AAddress: ${
+              const message = `Accessories Quote:%0AName: ${quoteData.name}%0AAddress: ${
                 quoteData.address
               }%0AImport Location: ${quoteData.importLocation}%0ABudget: ${
                 quoteData.budget
               }%0ATimeline: ${quoteData.timeline}${
                 quoteData.notes ? `%0ANotes: ${quoteData.notes}` : ""
               }`;
-              const url = `https://wa.me/923263333456?text=${message}`;
+              const whatsappUrl = `https://wa.me/923263331000?text=${message}`;
               if (typeof window !== "undefined") {
-                window.open(url, "_blank");
+                window.open(whatsappUrl, "_blank");
               }
               setQuoteOpen(false);
             }}

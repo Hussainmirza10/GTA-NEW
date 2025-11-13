@@ -8,11 +8,9 @@ import {
   Card,
   CardContent,
   Stack,
-  Tabs,
-  Tab,
   IconButton,
 } from "@mui/material";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetAllCars } from "src/hooks/use-cars";
 import { useRouter } from "next/navigation";
 import { WhatsApp } from "@mui/icons-material";
@@ -26,10 +24,9 @@ import GarageItem from "src/sections/garage/garage-item";
 export default function LastestEightCars() {
   const { data: allCarsData, isLoading, error } = useGetAllCars();
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState(0);
   const sliderRef = useRef(null);
 
-  // Filter cars based on selected tab
+  // Filter cars to include active and featured sale vehicles
   const getFilteredCars = () => {
     const baseCars =
       allCarsData?.data?.filter((c) => c?.status !== "Paused" && c?.carDetails?.isFeatured) || [];
@@ -39,18 +36,9 @@ export default function LastestEightCars() {
       (car) => car.category?.toLowerCase() === "sale"
     );
 
-    switch (activeTab) {
-      case 0: // In Stock
-        return saleCars.filter(
-          (car) => car.status === "Active" || car.status === "In Stock"
-        );
-      case 1: // New Cars
-        return saleCars.filter((car) => car.carDetails?.carType === "new");
-      case 2: // Used Cars
-        return saleCars.filter((car) => car.carDetails?.carType === "used");
-      default:
-        return saleCars;
-    }
+    return saleCars.filter(
+      (car) => car.status === "Active" || car.status === "In Stock"
+    );
   };
 
   const filteredCars = getFilteredCars();
@@ -99,16 +87,12 @@ export default function LastestEightCars() {
     ],
   };
 
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
-  };
-
-  // Reset slider when tab changes
+  // Reset slider when filtered cars change
   useEffect(() => {
     if (sliderRef.current) {
       sliderRef.current.slickGoTo(0);
     }
-  }, [activeTab, filteredCars.length]);
+  }, [filteredCars.length]);
 
   if (isLoading) {
     return (
@@ -201,115 +185,66 @@ export default function LastestEightCars() {
           </Typography>
         </Box>
 
-        {/* Tabs Navigation with Arrow Controls */}
+        {/* Arrow Controls */}
         <Box sx={{ mb: 5 }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 2,
-            }}>
+          {!isSingleCar && filteredCars.length > 0 && (
             <Box
               sx={{
-                flex: 1,
-                borderRadius: 2,
-                overflow: "hidden",
-                bgcolor: "#F3F4F6",
-                p: 0.5,
+                display: { xs: "none", md: "flex" },
+                justifyContent: "flex-end",
+                alignItems: "center",
+                gap: 1.5,
               }}>
-              <Tabs
-                value={activeTab}
-                onChange={handleTabChange}
-                variant="fullWidth"
+              <IconButton
+                onClick={() => sliderRef.current?.slickPrev()}
                 sx={{
-                  minHeight: "auto",
-                  "& .MuiTabs-indicator": {
-                    display: "none",
-                  },
-                  "& .MuiTab-root": {
-                    color: "#6B7280",
-                    fontSize: { xs: "0.9rem", md: "1rem" },
-                    fontWeight: 600,
-                    textTransform: "none",
-                    minHeight: "48px",
-                    borderRadius: 1.5,
-                    transition: "all 0.3s ease",
-                    "&.Mui-selected": {
-                      color: "#FFFFFF",
-                      bgcolor: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
-                      background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
-                      boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+                  width: 48,
+                  height: 48,
+                  bgcolor: "white",
+                  border: "2px solid #E5E7EB",
+                  borderRadius: 2,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    bgcolor: "#10B981",
+                    borderColor: "#10B981",
+                    "& svg": {
+                      color: "white",
                     },
-                    "&:hover": {
-                      bgcolor: "#E5E7EB",
-                    },
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
                   },
                 }}>
-                <Tab label="All Vehicles" />
-                <Tab label="New Cars" />
-                <Tab label="Used Cars" />
-              </Tabs>
+                <Iconify
+                  icon="eva:arrow-back-fill"
+                  sx={{ fontSize: 20, color: "#1F2937", transition: "color 0.3s ease" }}
+                />
+              </IconButton>
+              <IconButton
+                onClick={() => sliderRef.current?.slickNext()}
+                sx={{
+                  width: 48,
+                  height: 48,
+                  bgcolor: "white",
+                  border: "2px solid #E5E7EB",
+                  borderRadius: 2,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    bgcolor: "#10B981",
+                    borderColor: "#10B981",
+                    "& svg": {
+                      color: "white",
+                    },
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+                  },
+                }}>
+                <Iconify
+                  icon="eva:arrow-forward-fill"
+                  sx={{ fontSize: 20, color: "#1F2937", transition: "color 0.3s ease" }}
+                />
+              </IconButton>
             </Box>
-
-            {!isSingleCar && filteredCars.length > 0 && (
-              <Box
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  gap: 1.5,
-                }}>
-                <IconButton
-                  onClick={() => sliderRef.current?.slickPrev()}
-                  sx={{
-                    width: 48,
-                    height: 48,
-                    bgcolor: "white",
-                    border: "2px solid #E5E7EB",
-                    borderRadius: 2,
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      bgcolor: "#10B981",
-                      borderColor: "#10B981",
-                      "& svg": {
-                        color: "white",
-                      },
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
-                    },
-                  }}>
-                  <Iconify
-                    icon="eva:arrow-back-fill"
-                    sx={{ fontSize: 20, color: "#1F2937", transition: "color 0.3s ease" }}
-                  />
-                </IconButton>
-                <IconButton
-                  onClick={() => sliderRef.current?.slickNext()}
-                  sx={{
-                    width: 48,
-                    height: 48,
-                    bgcolor: "white",
-                    border: "2px solid #E5E7EB",
-                    borderRadius: 2,
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      bgcolor: "#10B981",
-                      borderColor: "#10B981",
-                      "& svg": {
-                        color: "white",
-                      },
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
-                    },
-                  }}>
-                  <Iconify
-                    icon="eva:arrow-forward-fill"
-                    sx={{ fontSize: 20, color: "#1F2937", transition: "color 0.3s ease" }}
-                  />
-                </IconButton>
-              </Box>
-            )}
-          </Box>
+          )}
         </Box>
 
         {/* Cars Display */}
@@ -365,7 +300,7 @@ export default function LastestEightCars() {
                     display: { xs: "none", md: "block" },
                   }}>
                   <Slider
-                    key={`slider-${activeTab}-${filteredCars.length}`}
+                    key={`slider-${filteredCars.length}`}
                     ref={sliderRef}
                     {...sliderSettings}
                     style={{ width: "100%", display: "flex !important" }}>

@@ -90,10 +90,10 @@ export default function CarsFiltersPage() {
       <StatsSection />
 
       {/* 4. Latest Products */}
-      <LatestProductsSection isShop={false} />
+      <LatestProductsSection titleText="Latest Chemicals" isShop={false} />
 
       {/* 5. Shop */}
-      <LatestProductsSection isShop={true} />
+      <LatestProductsSection titleText="Latest Products" isShop={false} />
 
       {/* 6. Import Your Dream Car Banner */}
       <Container maxWidth="xl">

@@ -21,7 +21,62 @@ import "slick-carousel/slick/slick-theme.css";
 import Iconify from "src/components/iconify";
 
 // Custom ProductList for Latest Products with slider view
-const LatestProductsList = ({ products, loading, title, isShop = false }) => {
+const gradientBackgrounds = {
+  "latest products":
+    "linear-gradient(180deg, rgba(79, 97, 130, 0.92) 0%, rgba(125, 145, 173, 0.62) 40%, rgba(186, 209, 230, 0.26) 75%, rgba(255, 255, 255, 0.08) 100%)",
+  "new arrivals":
+    "linear-gradient(180deg, rgba(79, 97, 130, 0.92) 0%, rgba(125, 145, 173, 0.62) 40%, rgba(186, 209, 230, 0.26) 75%, rgba(255, 255, 255, 0.08) 100%)",
+  "latest chemicals":
+    "linear-gradient(180deg, rgba(71, 124, 0, 0.96) 0%, rgba(71, 124, 0, 0.76) 30%, rgba(71, 124, 0, 0.46) 60%, rgba(176, 208, 119, 0.18) 85%, rgba(255, 255, 255, 0.05) 100%)",
+  chemicals:
+    "linear-gradient(180deg, rgba(71, 124, 0, 0.96) 0%, rgba(71, 124, 0, 0.76) 30%, rgba(71, 124, 0, 0.46) 60%, rgba(176, 208, 119, 0.18) 85%, rgba(255, 255, 255, 0.05) 100%)",
+  accessories:
+    "linear-gradient(180deg, rgba(79, 97, 130, 0.92) 0%, rgba(125, 145, 173, 0.62) 40%, rgba(186, 209, 230, 0.26) 75%, rgba(255, 255, 255, 0.08) 100%)",
+  leds:
+    "linear-gradient(180deg, rgba(124, 58, 237, 0.95) 0%, rgba(249, 115, 22, 0.68) 38%, rgba(255, 191, 0, 0.48) 65%, rgba(255, 255, 255, 0.12) 100%)",
+  comic:
+    "linear-gradient(180deg, rgba(214, 31, 105, 0.95) 0%, rgba(236, 72, 153, 0.7) 40%, rgba(244, 114, 182, 0.38) 70%, rgba(255, 228, 242, 0.15) 100%)",
+  default:
+    "linear-gradient(180deg, rgba(71, 124, 0, 0.96) 0%, rgba(71, 124, 0, 0.76) 30%, rgba(71, 124, 0, 0.46) 60%, rgba(176, 208, 119, 0.18) 85%, rgba(255, 255, 255, 0.05) 100%)",
+};
+
+const accentOverlays = {
+  "latest products":
+    "radial-gradient(circle at 20% 20%, rgba(203, 213, 225, 0.42), transparent 60%), radial-gradient(circle at 80% 10%, rgba(148, 163, 184, 0.3), transparent 55%), radial-gradient(circle at 60% 80%, rgba(191, 219, 254, 0.28), transparent 60%)",
+  "new arrivals":
+    "radial-gradient(circle at 20% 20%, rgba(203, 213, 225, 0.42), transparent 60%), radial-gradient(circle at 80% 10%, rgba(148, 163, 184, 0.3), transparent 55%), radial-gradient(circle at 60% 80%, rgba(191, 219, 254, 0.28), transparent 60%)",
+  "latest chemicals":
+    "radial-gradient(circle at 20% 20%, rgba(189, 227, 120, 0.42), transparent 60%), radial-gradient(circle at 80% 10%, rgba(164, 214, 92, 0.32), transparent 55%), radial-gradient(circle at 60% 80%, rgba(118, 173, 58, 0.32), transparent 60%)",
+  chemicals:
+    "radial-gradient(circle at 20% 20%, rgba(189, 227, 120, 0.42), transparent 60%), radial-gradient(circle at 80% 10%, rgba(164, 214, 92, 0.32), transparent 55%), radial-gradient(circle at 60% 80%, rgba(118, 173, 58, 0.32), transparent 60%)",
+  accessories:
+    "radial-gradient(circle at 20% 20%, rgba(203, 213, 225, 0.42), transparent 60%), radial-gradient(circle at 80% 10%, rgba(148, 163, 184, 0.3), transparent 55%), radial-gradient(circle at 60% 80%, rgba(191, 219, 254, 0.28), transparent 60%)",
+  leds:
+    "radial-gradient(circle at 20% 20%, rgba(252, 211, 77, 0.4), transparent 60%), radial-gradient(circle at 80% 10%, rgba(251, 146, 60, 0.34), transparent 55%), radial-gradient(circle at 60% 80%, rgba(196, 181, 253, 0.32), transparent 60%)",
+  comic:
+    "radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.44), transparent 60%), radial-gradient(circle at 80% 10%, rgba(236, 72, 153, 0.32), transparent 55%), radial-gradient(circle at 60% 80%, rgba(219, 39, 119, 0.26), transparent 60%)",
+  default:
+    "radial-gradient(circle at 20% 20%, rgba(189, 227, 120, 0.42), transparent 60%), radial-gradient(circle at 80% 10%, rgba(164, 214, 92, 0.32), transparent 55%), radial-gradient(circle at 60% 80%, rgba(118, 173, 58, 0.32), transparent 60%)",
+};
+
+const gridOverlayOpacity = {
+  "latest products": 0.18,
+  "new arrivals": 0.18,
+  "latest chemicals": 0.22,
+  chemicals: 0.2,
+  accessories: 0.18,
+  leds: 0.24,
+  comic: 0.22,
+  default: 0.2,
+};
+
+const LatestProductsList = ({
+  products,
+  loading,
+  title,
+  isShop = false,
+  gradientVariant = "default",
+}) => {
   const sliderRef = useRef(null);
 
   // Calculate slidesToShow based on available products
@@ -71,6 +126,23 @@ const LatestProductsList = ({ products, loading, title, isShop = false }) => {
     ],
   };
 
+  const headingStyles = {
+    color: "#000000",
+    fontWeight: 400,
+    fontSize: { xs: "2.5rem", md: "3.5rem" },
+    mb: 1,
+    fontFamily: "'Pricedown', 'Bebas Neue', 'Impact', sans-serif",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+    textShadow: `
+      -2px -2px 0 #FFFFFF,
+      2px -2px 0 #FFFFFF,
+      -2px 2px 0 #FFFFFF,
+      2px 2px 0 #FFFFFF,
+      0 0 12px rgba(255, 255, 255, 0.9)
+    `,
+  };
+
   if (loading) {
     return (
       <>
@@ -92,22 +164,7 @@ const LatestProductsList = ({ products, loading, title, isShop = false }) => {
           }}>
           <Typography
             variant="h2"
-            sx={{
-              fontWeight: 400,
-              color: "#000000",
-              fontSize: { xs: "2.5rem", md: "3.5rem" },
-              mb: 1,
-              fontFamily: "'Pricedown', 'Bebas Neue', 'Impact', sans-serif",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              textShadow: `
-                -2px -2px 0 #FFFFFF,
-                2px -2px 0 #FFFFFF,
-                -2px 2px 0 #FFFFFF,
-                2px 2px 0 #FFFFFF,
-                0 0 10px rgba(255, 255, 255, 0.8)
-              `,
-            }}>
+            sx={headingStyles}>
             {title}
           </Typography>
           <Typography
@@ -172,22 +229,7 @@ const LatestProductsList = ({ products, loading, title, isShop = false }) => {
           }}>
           <Typography
             variant="h2"
-            sx={{
-              fontWeight: 400,
-              color: "#000000",
-              fontSize: { xs: "2.5rem", md: "3.5rem" },
-              mb: 1,
-              fontFamily: "'Pricedown', 'Bebas Neue', 'Impact', sans-serif",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              textShadow: `
-                -2px -2px 0 #FFFFFF,
-                2px -2px 0 #FFFFFF,
-                -2px 2px 0 #FFFFFF,
-                2px 2px 0 #FFFFFF,
-                0 0 10px rgba(255, 255, 255, 0.8)
-              `,
-            }}>
+            sx={headingStyles}>
             {title}
           </Typography>
           <Typography
@@ -415,13 +457,34 @@ const LatestProductsList = ({ products, loading, title, isShop = false }) => {
 };
 
 export default function LatestProductsSection({
-  titleText = " Latest Products",
+  titleText = "Latest Products",
   isShop = false,
 }) {
   const [latestProducts, setLatestProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [firstTenProducts, setFirstTenProducts] = useState([]);
   const [loadingFirstTen, setLoadingFirstTen] = useState(true);
+  const normalizedTitle = titleText.trim().toLowerCase();
+
+  const gradientKey = (() => {
+    if (isShop) return "latest chemicals";
+    if (normalizedTitle === "latest chemicals") return "latest chemicals";
+    if (normalizedTitle === "latest products") return "latest products";
+    if (normalizedTitle === "new arrivals") return "new arrivals";
+    return normalizedTitle || "default";
+  })();
+
+  const sectionProducts = (() => {
+    if (isShop) return firstTenProducts;
+    if (normalizedTitle === "latest chemicals") return latestProducts;
+    return firstTenProducts;
+  })();
+
+  const sectionLoading = (() => {
+    if (isShop) return loadingFirstTen;
+    if (normalizedTitle === "latest chemicals") return loading;
+    return loadingFirstTen;
+  })();
 
   useEffect(() => {
     const fetchLatestProducts = async () => {
@@ -522,21 +585,31 @@ export default function LatestProductsSection({
   }, []);
 
   return (
-    <Container
-      maxWidth="xl"
+    <Box
       sx={{
-        py: 8,
-        px: { xs: 2, sm: 3, md: 4 },
-        // backgroundColor: "black",
-        minHeight: "600px",
+        position: "relative",
+        overflow: "hidden",
+        py: 10,
+        px: { xs: 0, md: 0 },
+        minHeight: "620px",
+        background:
+          gradientBackgrounds[gradientKey] || gradientBackgrounds.default,
       }}>
+      <Container
+        maxWidth="xl"
+        sx={{
+          position: "relative",
+          zIndex: 2,
+          py: 2,
+          px: { xs: 2, sm: 3, md: 4 },
+        }}>
        {!isShop && (
          <Box sx={{ position: "relative", zIndex: 2 }}>
           <Grid item xs={12}>
             <LatestProductsList 
-              products={latestProducts} 
-              loading={loading} 
-              title="Latest Products"
+              products={sectionProducts} 
+              loading={sectionLoading} 
+              title={titleText}
               isShop={false}
             />
           </Grid>
@@ -548,14 +621,37 @@ export default function LatestProductsSection({
         <Box sx={{ position: "relative", zIndex: 2, mt: 8 }}>
           <Grid item xs={12}>
             <LatestProductsList
-              products={firstTenProducts}
-              loading={loadingFirstTen}
-              title="Shop"
+              products={sectionProducts}
+              loading={sectionLoading}
+              title={titleText}
               isShop={true}
             />
           </Grid>
         </Box>
       )}
-    </Container>
+      </Container>
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background:
+            accentOverlays[gradientKey] || accentOverlays.default,
+          opacity: 0.62,
+          pointerEvents: "none",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "url(\"data:image/svg+xml,%3Csvg width='220' height='220' viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='1'%3E%3Cpath d='M0 110h220M110 0v220'/%3E%3Ccircle cx='110' cy='110' r='50'/%3E%3C/g%3E%3C/svg%3E\")",
+          mixBlendMode: "soft-light",
+          opacity:
+            gridOverlayOpacity[gradientKey] ?? gridOverlayOpacity.default,
+          pointerEvents: "none",
+        }}
+      />
+    </Box>
   );
 }

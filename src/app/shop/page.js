@@ -1,5 +1,7 @@
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { ProductShopView } from "src/sections/product/view";
+import CustomLayout from "../custom-layout";
+import MainLayout from "src/layouts/main";
 
 // ----------------------------------------------------------------------
 
@@ -9,8 +11,12 @@ export const metadata = {
 
 export default function ShopPage() {
   return (
-    <Box>
-      <ProductShopView />
-    </Box>
+    <CustomLayout>
+      <MainLayout hideFooter>
+        <Box sx={{ pt: 0, mt: { xs: -8, md: -10 }, pb: { xs: 10, md: 14 } }}>
+          <ProductShopView />
+        </Box>
+      </MainLayout>
+    </CustomLayout>
   );
 }

@@ -41,17 +41,17 @@ const BrandCards = () => {
       specialties: ["Dynamic performance", "Driver-focused design", "Cutting-edge tech", "Prestige brand"],
       popularity: "Performance Leader"
     },
-    { 
-      name: "Suzuki", 
-      logo: "/assets/suzuki.webp", 
+    {
+      name: "Suzuki",
+      logo: "/assets/suzuki.jpg",
       count: "200+ Cars",
       description: "Suzuki dominates the Pakistani market with affordable, reliable vehicles. Our largest inventory includes Cultus, Wagon R, Swift, and Alto models.",
       specialties: ["Budget-friendly options", "Low maintenance costs", "Excellent mileage", "Easy parts availability"],
       popularity: "Best Value"
     },
-    { 
-      name: "Hyundai", 
-      logo: "/assets/hyundai.webp", 
+    {
+      name: "Hyundai",
+      logo: "/assets/hyundai.jpg",
       count: "90+ Cars",
       description: "Hyundai brings modern design and advanced features at competitive prices. We stock popular models like Tucson, Elantra, and Sonata.",
       specialties: ["Modern styling", "Advanced features", "Great warranty", "Value for money"],
