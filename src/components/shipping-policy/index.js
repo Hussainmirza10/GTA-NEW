@@ -114,7 +114,7 @@ export default function ShippingPolicy() {
                   textTransform: "uppercase",
                   letterSpacing: 1.6,
                   fontWeight: 700,
-                  bgcolor: "rgba(148, 163, 184, 0.2)",
+                  bgcolor: "rgba(148, 163, 184, 0.18)",
                   color: "#0f172a",
                   px: 2.5,
                 }}
@@ -135,12 +135,13 @@ export default function ShippingPolicy() {
                 sx={{
                   color: "rgba(71, 85, 105, 0.85)",
                   lineHeight: 1.7,
-                  maxWidth: 560,
+                  maxWidth: 540,
                 }}
               >
-                GTA partners with premium couriers across Pakistan and the GCC so every parcel—
-                ceramics, forged wheels, or full aero assemblies—arrives protected, tracked, and on
-                your schedule.
+                GTA partners with premium couriers across Pakistan and the GCC,
+                ensuring every package is protected, tracked, and delivered on
+                your schedule. Expect studio-grade handling, whether it’s a
+                ceramic kit or a full aero assembly.
               </Typography>
               <Grid container spacing={2}>
                 {quickContacts.map((item) => (
@@ -189,6 +190,7 @@ export default function ShippingPolicy() {
           </Grid>
         </Grid>
 
+        {/* Delivery tiers */}
         <Typography
           variant="overline"
           sx={{ color: "#2563eb", letterSpacing: 2, mt: { xs: 8, md: 10 }, display: "block" }}
@@ -243,6 +245,7 @@ export default function ShippingPolicy() {
           ))}
         </Grid>
 
+        {/* Assurances */}
         <Card
           elevation={0}
           sx={{
@@ -288,6 +291,7 @@ export default function ShippingPolicy() {
           </CardContent>
         </Card>
 
+        {/* Process timeline */}
         <Grid container spacing={3} sx={{ mt: { xs: 8, md: 10 } }}>
           {checkpoints.map((step) => (
             <Grid key={step.label} item xs={12} md={4}>
