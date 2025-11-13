@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { useRouter } from "src/routes/hooks";
 import { paths } from "src/routes/paths";
 
@@ -56,6 +56,23 @@ const Blog = () => {
     console.log("Load more posts");
   };
 
+  const uniqueCategories = Array.from(
+    new Set(
+      posts.map((post) => {
+        if (typeof post.category === "string") return post.category;
+        if (post.category?.label) return post.category.label;
+        if (post.category?.name) return post.category.name;
+        return "Stories";
+      })
+    )
+  );
+
+  const uniqueTags = Array.from(
+    new Set(posts.flatMap((post) => post.tags || []))
+  );
+
+  const featuredTags = uniqueTags.slice(0, 6);
+
   if (loading) {
     return <BlogLoadingState />;
   }
@@ -69,13 +86,52 @@ const Blog = () => {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ py: 8, mt: "40px" }}>
-      <BlogHeader />
+    <Box
+      sx={{
+        minHeight: "100vh",
+        position: "relative",
+        overflow: "hidden",
+        py: { xs: 8, md: 12 },
+        background: "linear-gradient(180deg, #020617 0%, #0f172a 65%, #020617 100%)",
+      }}
+    >
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 55%), radial-gradient(circle at 80% 15%, rgba(16,185,129,0.2), transparent 60%)",
+          opacity: 0.8,
+        }}
+      />
 
-      <BlogGrid posts={posts} onViewDetails={handleViewDetails} />
+      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2 }}>
+        <BlogHeader
+          postCount={posts.length}
+          categoryCount={uniqueCategories.length}
+          featuredTags={featuredTags}
+        />
 
-      {posts.length >= 6 && <BlogLoadMore onLoadMore={handleLoadMore} />}
-    </Container>
+        <Box
+          sx={{
+            mt: { xs: 6, md: 8 },
+            borderRadius: { xs: 4, md: 6 },
+            px: { xs: 2, md: 5 },
+            py: { xs: 3, md: 6 },
+            background: "rgba(15, 23, 42, 0.78)",
+            boxShadow: "0 45px 120px rgba(2, 6, 23, 0.55)",
+            backdropFilter: "blur(24px)",
+            border: "1px solid rgba(148, 163, 184, 0.12)",
+          }}
+        >
+          <BlogGrid posts={posts} onViewDetails={handleViewDetails} />
+
+          {posts.length >= 6 && (
+            <BlogLoadMore onLoadMore={handleLoadMore} />
+          )}
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

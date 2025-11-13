@@ -174,6 +174,30 @@ const CONTACT_METHODS = [
   },
 ];
 
+const HeroStat = ({ label, value }) => (
+  <Box
+    sx={{
+      px: 3,
+      py: 2,
+      borderRadius: 3,
+      backgroundColor: "rgba(15, 23, 42, 0.45)",
+      border: "1px solid rgba(148, 163, 184, 0.2)",
+      minWidth: { xs: "auto", sm: 200 },
+      boxShadow: "0 24px 65px rgba(2, 6, 23, 0.35)",
+    }}
+  >
+    <Typography variant="h5" sx={{ fontWeight: 800, color: "#f8fafc" }}>
+      {value}
+    </Typography>
+    <Typography
+      variant="body2"
+      sx={{ color: "rgba(226, 232, 240, 0.78)", fontWeight: 600 }}
+    >
+      {label}
+    </Typography>
+  </Box>
+);
+
 const Support = () => {
   const [expanded, setExpanded] = useState(false);
 
@@ -194,36 +218,85 @@ const Support = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#000000", minHeight: "100vh", py: 8 }}>
-      <Container maxWidth="lg">
+    <Box
+      sx={{
+        minHeight: "100vh",
+        position: "relative",
+        overflow: "hidden",
+        py: { xs: 8, md: 12 },
+        background:
+          "linear-gradient(180deg, #020617 0%, #0f172a 55%, #020617 100%)",
+      }}
+    >
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 55%), radial-gradient(circle at 80% 18%, rgba(16,185,129,0.22), transparent 60%)",
+          opacity: 0.85,
+        }}
+      />
+      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2 }}>
         {/* Hero Section */}
-        <Box textAlign="center" mb={8}>
-          <Typography
-            variant="h2"
-            component="h1"
-            gutterBottom
-            sx={{
-              fontWeight: 800,
-              color: "#4caf50",
-              mb: 3,
-              fontSize: { xs: "2.5rem", md: "4rem" },
-            }}>
-            How can we help you?
-          </Typography>
+        <Box
+          sx={{
+            textAlign: "center",
+            mb: { xs: 8, md: 10 },
+            px: { xs: 2, md: 8 },
+          }}
+        >
+          <Stack spacing={3} alignItems="center">
+            <Chip
+              label="Garage Tuned Autos Support"
+              sx={{
+                textTransform: "uppercase",
+                letterSpacing: 1.6,
+                fontWeight: 700,
+                bgcolor: "rgba(148, 163, 184, 0.12)",
+                color: "#e2e8f0",
+                px: 2.5,
+              }}
+            />
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{
+                fontWeight: 800,
+                color: "#f8fafc",
+                fontSize: { xs: "2.6rem", md: "3.8rem" },
+                maxWidth: 720,
+                lineHeight: 1.1,
+              }}
+            >
+              How can we get you back on the road faster?
+            </Typography>
 
-          <Typography
-            variant="h6"
-            sx={{
-              maxWidth: 700,
-              mx: "auto",
-              mb: 6,
-              color: "#ffffff",
-              opacity: 0.9,
-              lineHeight: 1.6,
-            }}>
-            Get the support you need with our comprehensive help center, live
-            chat, and dedicated support team.
-          </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                maxWidth: 720,
+                color: "rgba(226, 232, 240, 0.82)",
+                lineHeight: 1.7,
+                fontWeight: 500,
+              }}
+            >
+              Reach our technicians, browse curated help guides, or jump into a
+              live chat. The GTA concierge team is always within reach.
+            </Typography>
+
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+              sx={{ pt: 1 }}
+            >
+              <HeroStat label="Response time" value="15 min avg" />
+              <HeroStat label="Knowledge articles" value="120+" />
+              <HeroStat label="Live agents" value="24/7" />
+            </Stack>
+          </Stack>
 
           {/* <Box sx={{ textAlign: "center", maxWidth: 500, mx: "auto" }}>
             <TextField
@@ -261,7 +334,7 @@ const Support = () => {
           <Typography
             variant="h3"
             sx={{
-              color: "#fff",
+              color: "#f8fafc",
               textAlign: "center",
               mb: 6,
               fontWeight: 700,
@@ -275,15 +348,17 @@ const Support = () => {
                 <Card
                   sx={{
                     height: "100%",
-                    backgroundColor: "transparent",
-                    border: "1px solid #4caf50",
-                    borderRadius: 3,
+                    background:
+                      "linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.62) 100%)",
+                    border: "1px solid rgba(74, 222, 128, 0.18)",
+                    borderRadius: 4,
+                    backdropFilter: "blur(12px)",
                     transition: "all 0.4s ease",
                     cursor: "pointer",
                     "&:hover": {
                       transform: "translateY(-8px)",
-                      borderColor: "#00ff88",
-                      boxShadow: "0 10px 30px rgba(0, 255, 136, 0.2)",
+                      borderColor: "rgba(74, 222, 128, 0.45)",
+                      boxShadow: "0 24px 65px rgba(15, 118, 110, 0.25)",
                     },
                   }}>
                   <CardContent sx={{ p: 4, textAlign: "center" }}>
@@ -292,20 +367,20 @@ const Support = () => {
                         width: 60,
                         height: 60,
                         borderRadius: "50%",
-                        backgroundColor: "rgba(0, 255, 136, 0.1)",
+                        backgroundColor: "rgba(74, 222, 128, 0.12)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         mx: "auto",
                         mb: 3,
-                        border: "1px solid #4caf50",
+                        border: "1px solid rgba(74, 222, 128, 0.45)",
                       }}>
                       <Iconify
                         icon={category.icon}
                         sx={{
                           width: 30,
                           height: 30,
-                          color: "#4caf50",
+                          color: "#4ade80",
                         }}
                       />
                     </Box>
@@ -313,7 +388,7 @@ const Support = () => {
                     <Typography
                       variant="h5"
                       sx={{
-                        color: "#4caf50",
+                        color: "#bbf7d0",
                         mb: 2,
                         fontWeight: 700,
                       }}>
@@ -323,8 +398,7 @@ const Support = () => {
                     <Typography
                       variant="body1"
                       sx={{
-                        color: "#ffffff",
-                        opacity: 0.9,
+                        color: "rgba(226, 232, 240, 0.78)",
                         mb: 3,
                         lineHeight: 1.6,
                       }}>
@@ -335,10 +409,10 @@ const Support = () => {
                       label={`${category.count} articles`}
                       size="small"
                       sx={{
-                        backgroundColor: "rgba(0, 255, 136, 0.1)",
-                        color: "#fff",
+                        backgroundColor: "rgba(59, 130, 246, 0.15)",
+                        color: "#dbeafe",
                         fontWeight: 600,
-                        border: "1px solid #4caf50",
+                        border: "1px solid rgba(59, 130, 246, 0.35)",
                       }}
                     />
                   </CardContent>
@@ -353,7 +427,7 @@ const Support = () => {
           <Typography
             variant="h3"
             sx={{
-              color: "#fff",
+              color: "#f8fafc",
               textAlign: "center",
               mb: 6,
               fontWeight: 700,
@@ -367,9 +441,11 @@ const Support = () => {
                 <Card
                   sx={{
                     height: "100%",
-                    backgroundColor: "transparent",
-                    border: "1px solid #4caf50",
-                    borderRadius: 3,
+                    background:
+                      "linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.62) 100%)",
+                    border: "1px solid rgba(96, 165, 250, 0.22)",
+                    borderRadius: 4,
+                    backdropFilter: "blur(12px)",
                     textAlign: "center",
                     p: 4,
                   }}>
@@ -378,19 +454,19 @@ const Support = () => {
                       width: 80,
                       height: 80,
                       borderRadius: "50%",
-                      backgroundColor: "rgba(0, 255, 136, 0.1)",
+                      backgroundColor: "rgba(37, 99, 235, 0.18)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       mx: "auto",
                       mb: 3,
-                      border: "1px solid #4caf50",
+                      border: "1px solid rgba(96, 165, 250, 0.45)",
                     }}>
                     <method.icon
                       sx={{
                         width: 40,
                         height: 40,
-                        color: "#4caf50",
+                        color: "#60a5fa",
                       }}
                     />
                   </Box>
@@ -398,7 +474,7 @@ const Support = () => {
                   <Typography
                     variant="h5"
                     sx={{
-                      color: "#4caf50",
+                      color: "#bfdbfe",
                       mb: 2,
                       fontWeight: 700,
                     }}>
@@ -408,8 +484,7 @@ const Support = () => {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: "#ffffff",
-                      opacity: 0.9,
+                      color: "rgba(226, 232, 240, 0.78)",
                       mb: 3,
                       lineHeight: 1.6,
                     }}>
@@ -419,9 +494,9 @@ const Support = () => {
                   <Typography
                     variant="h6"
                     sx={{
-                      color: "#00ff88",
+                      color: "#38bdf8",
                       mb: 2,
-                      fontWeight: 600,
+                      fontWeight: 700,
                     }}>
                     {method.contact}
                   </Typography>
@@ -435,18 +510,18 @@ const Support = () => {
                       label={method.availability}
                       size="small"
                       sx={{
-                        backgroundColor: "rgba(0, 255, 136, 0.1)",
-                        color: "#fff",
-                        border: "1px solid #4caf50",
+                        backgroundColor: "rgba(37, 99, 235, 0.15)",
+                        color: "#e0f2fe",
+                        border: "1px solid rgba(37, 99, 235, 0.35)",
                       }}
                     />
                     <Chip
                       label={method.responseTime}
                       size="small"
                       sx={{
-                        backgroundColor: "rgba(0, 255, 136, 0.1)",
-                        color: "#fff",
-                        border: "1px solid #4caf50",
+                        backgroundColor: "rgba(16, 185, 129, 0.18)",
+                        color: "#bbf7d0",
+                        border: "1px solid rgba(16, 185, 129, 0.32)",
                       }}
                     />
                   </Stack>
@@ -455,13 +530,19 @@ const Support = () => {
                     variant="contained"
                     fullWidth
                     sx={{
-                      backgroundColor: "#4caf50",
-                      color: "#000000",
+                      background:
+                        "linear-gradient(135deg, rgba(59,130,246,1) 0%, rgba(16,185,129,1) 100%)",
+                      color: "#0b1120",
                       py: 2,
-                      fontWeight: 600,
+                      fontWeight: 700,
                       fontSize: "1rem",
                       textTransform: "uppercase",
-                      borderRadius: 2,
+                      borderRadius: 999,
+                      boxShadow: "0 20px 60px rgba(37, 99, 235, 0.3)",
+                      "&:hover": {
+                        background:
+                          "linear-gradient(135deg, rgba(37,99,235,1) 0%, rgba(16,185,129,1) 100%)",
+                      },
                     }}
                     onClick={() => handleContactClick(method)}>
                     Contact Now
@@ -623,7 +704,7 @@ const Support = () => {
           <Typography
             variant="h3"
             sx={{
-              color: "#fff",
+              color: "#f8fafc",
               textAlign: "center",
               mb: 6,
               fontWeight: 700,
@@ -633,9 +714,11 @@ const Support = () => {
 
           <Paper
             sx={{
-              backgroundColor: "transparent",
-              border: "1px solid #4caf50",
-              borderRadius: 3,
+              background:
+                "linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.6) 100%)",
+              border: "1px solid rgba(96, 165, 250, 0.2)",
+              borderRadius: 4,
+              backdropFilter: "blur(16px)",
             }}>
             {FREQUENT_QUESTIONS.map((faq, index) => (
               <Accordion
@@ -643,26 +726,22 @@ const Support = () => {
                 expanded={expanded === `panel${index}`}
                 onChange={handleChange(`panel${index}`)}
                 sx={{
-                  backgroundColor:
-                    expanded === `panel${index}`
-                      ? "transparent !important"
-                      : "transparent !important",
+                  backgroundColor: "transparent !important",
                   "&:before": {
                     display: "none",
                   },
                   "& .MuiAccordionSummary-root": {
-                    color: "#fff",
+                    color: "#f8fafc",
                     "&:hover": {
-                      backgroundColor: "rgba(0, 255, 136, 0.05)",
+                      backgroundColor: "rgba(37, 99, 235, 0.12)",
                     },
                   },
                   "& .MuiAccordionDetails-root": {
-                    color: "#000",
-                    opacity: 0.9,
+                    color: "rgba(226, 232, 240, 0.85)",
                   },
                 }}>
                 <AccordionSummary
-                  expandIcon={<ExpandMore sx={{ color: "#4caf50" }} />}>
+                  expandIcon={<ExpandMore sx={{ color: "#60a5fa" }} />}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>
                     {faq.question}
                   </Typography>
@@ -670,7 +749,7 @@ const Support = () => {
                 <AccordionDetails>
                   <Typography
                     variant="body1"
-                    sx={{ lineHeight: 1.6, color: "#fff" }}>
+                    sx={{ lineHeight: 1.65, color: "rgba(226, 232, 240, 0.85)" }}>
                     {faq.answer}
                   </Typography>
                 </AccordionDetails>
@@ -680,37 +759,39 @@ const Support = () => {
         </Box>
 
         {/* CTA Section */}
-        {/* <Box
+        <Box
           sx={{
-            p: 6,
-            backgroundColor: "rgba(0, 255, 136, 0.1)",
-            border: "1px solid #4caf50",
-            borderRadius: 4,
+            p: { xs: 4, md: 6 },
+            mt: { xs: 8, md: 10 },
+            background:
+              "linear-gradient(135deg, rgba(59,130,246,0.18) 0%, rgba(16,185,129,0.24) 100%)",
+            border: "1px solid rgba(148, 163, 184, 0.2)",
+            borderRadius: 5,
             textAlign: "center",
-            backdropFilter: "blur(10px)",
+            backdropFilter: "blur(18px)",
+            boxShadow: "0 45px 120px rgba(2, 6, 23, 0.5)",
           }}>
           <Typography
             variant="h3"
             sx={{
-              color: "#00ff88",
+              color: "#f8fafc",
               mb: 3,
-              fontWeight: 700,
+              fontWeight: 800,
             }}>
-            Still need help?
+            Still need a specialist?
           </Typography>
 
           <Typography
             variant="h6"
             sx={{
-              color: "#ffffff",
-              opacity: 0.9,
+              color: "rgba(226, 232, 240, 0.85)",
               mb: 4,
-              maxWidth: 600,
+              maxWidth: 640,
               mx: "auto",
-              lineHeight: 1.6,
+              lineHeight: 1.7,
             }}>
-            Our support team is here to help you 24/7. Don't hesitate to reach
-            out for any assistance you need.
+            Our concierge team can route you to a master technician, setup a
+            workshop visit, or dispatch mobile support within minutes.
           </Typography>
 
           <Stack
@@ -722,18 +803,20 @@ const Support = () => {
               size="large"
               startIcon={<Chat />}
               sx={{
-                backgroundColor: "#4caf50",
-                color: "#000000",
-                px: 3,
+                background:
+                  "linear-gradient(135deg, rgba(59,130,246,1) 0%, rgba(16,185,129,1) 100%)",
+                color: "#0b1120",
+                px: 4,
                 py: 2,
                 fontSize: "1rem",
-                fontWeight: 600,
-                letterSpacing: "2px",
-                borderRadius: "14px",
+                fontWeight: 700,
+                letterSpacing: 1,
+                borderRadius: 999,
+                boxShadow: "0 24px 70px rgba(37, 99, 235, 0.45)",
                 "&:hover": {
-                  backgroundColor: "#00ff88",
+                  background:
+                    "linear-gradient(135deg, rgba(37,99,235,1) 0%, rgba(5,150,105,1) 100%)",
                 },
-                transition: "all 0.3s ease",
               }}>
               Start Live Chat
             </Button>
@@ -743,25 +826,23 @@ const Support = () => {
               size="large"
               startIcon={<Email />}
               sx={{
-                borderColor: "#4caf50",
-                color: "#4caf50",
-                px: 3,
+                borderColor: "rgba(148, 163, 184, 0.4)",
+                color: "#e2e8f0",
+                px: 4,
                 py: 2,
                 fontSize: "1rem",
-                fontWeight: 600,
-                letterSpacing: "2px",
-                borderRadius: "14px",
+                fontWeight: 700,
+                letterSpacing: 1,
+                borderRadius: 999,
                 "&:hover": {
-                  borderColor: "#00ff88",
-                  backgroundColor: "rgba(0, 255, 136, 0.1)",
-                  color: "#00ff88",
+                  borderColor: "rgba(148, 163, 184, 0.8)",
+                  backgroundColor: "rgba(148, 163, 184, 0.08)",
                 },
-                transition: "all 0.3s ease",
               }}>
               Send Email
             </Button>
           </Stack>
-        </Box> */}
+        </Box>
       </Container>
     </Box>
   );

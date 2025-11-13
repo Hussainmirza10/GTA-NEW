@@ -24,10 +24,13 @@ const BlogGrid = ({ posts }) => {
   };
 
   return (
-    <Grid container gap={4}>
+    <Grid container spacing={{ xs: 3, md: 4 }}>
       {posts.map((post, index) => (
-        <Grid key={post._id || index} item xs={12} sm={6} md={4} lg={3}>
-          <BlogCard post={post} onViewDetails={() => handleViewDetails(post)} />
+        <Grid key={post._id || index} item xs={12} sm={6} md={6} lg={4}>
+          <BlogCard
+            post={post}
+            onViewDetails={() => handleViewDetails(post)}
+          />
         </Grid>
       ))}
     </Grid>
