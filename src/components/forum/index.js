@@ -467,7 +467,7 @@ const Forum = () => {
         overflow: "hidden",
         py: { xs: 8, md: 10 },
         background:
-          "linear-gradient(180deg, #020617 0%, #0b1120 55%, #020617 100%)",
+          "linear-gradient(180deg, #f1f5f9 0%, #f8fafc 55%, #eef2ff 100%)",
       }}
     >
       <Box
@@ -475,8 +475,8 @@ const Forum = () => {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(circle at 15% 20%, rgba(59,130,246,0.22), transparent 55%), radial-gradient(circle at 85% 25%, rgba(6,182,212,0.2), transparent 55%)",
-          opacity: 0.85,
+            "radial-gradient(circle at 18% 18%, rgba(191,219,254,0.6), transparent 55%), radial-gradient(circle at 82% 22%, rgba(186,230,253,0.5), transparent 55%)",
+          opacity: 0.7,
         }}
       />
 
@@ -494,10 +494,9 @@ const Forum = () => {
             borderRadius: { xs: 4, md: 6 },
             px: { xs: 2, md: 5 },
             py: { xs: 3, md: 5 },
-            background: "rgba(2, 6, 23, 0.78)",
-            boxShadow: "0 45px 120px rgba(2, 6, 23, 0.55)",
-            backdropFilter: "blur(22px)",
-            border: "1px solid rgba(148, 163, 184, 0.18)",
+            backgroundColor: "#ffffff",
+            boxShadow: "0 32px 80px rgba(15, 23, 42, 0.12)",
+            border: "1px solid rgba(226, 232, 240, 0.85)",
           }}
         >
           <Grid container spacing={{ xs: 3, lg: 4 }}>
@@ -539,8 +538,9 @@ const Forum = () => {
                       router.push("/dashboard/admin/forum/categories")
                     }
                     sx={{
-                      borderColor: "#60a5fa",
-                      color: "#bfdbfe",
+                      borderColor: "rgba(37, 99, 235, 0.4)",
+                      color: "#1d4ed8",
+                      fontWeight: 600,
                       "&:hover": {
                         borderColor: "#2563eb",
                         bgcolor: "rgba(37, 99, 235, 0.08)",

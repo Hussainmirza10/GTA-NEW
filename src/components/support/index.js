@@ -10,73 +10,50 @@ import {
   Button,
   Stack,
   Chip,
-  Avatar,
-  TextField,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Divider,
   IconButton,
   Paper,
 } from "@mui/material";
-import {
-  Phone,
-  Email,
-  Chat,
-  ExpandMore,
-  Star,
-  AccessTime,
-  CheckCircle,
-  HeadsetMic,
-  LiveHelp,
-  Article,
-  VideoLibrary,
-} from "@mui/icons-material";
-
+import { Phone, Email, Chat, ExpandMore } from "@mui/icons-material";
 import Iconify from "src/components/iconify";
 
-// Dummy data for support
 const SUPPORT_CATEGORIES = [
   {
     icon: "/assets/icons/faqs/ic_account.svg",
     title: "Account & Billing",
-    description: "Manage your account settings and billing information",
-    color: "#4caf50",
+    description: "Manage profiles, invoices, and subscription preferences.",
     count: 12,
   },
   {
     icon: "/assets/icons/faqs/ic_payment.svg",
     title: "Payment Issues",
-    description: "Resolve payment problems and refund requests",
-    color: "#4caf50",
+    description: "Resolve payment errors, declined cards, and refunds.",
     count: 8,
   },
   {
     icon: "/assets/icons/faqs/ic_delivery.svg",
     title: "Shipping & Delivery",
-    description: "Track orders and delivery information",
-    color: "#4caf50",
+    description: "Track parcels, update delivery windows, and arrange pickups.",
     count: 15,
   },
   {
     icon: "/assets/icons/faqs/ic_package.svg",
     title: "Product Support",
-    description: "Get help with product features and troubleshooting",
-    color: "#4caf50",
+    description: "Request fitment help, installation advice, and warranties.",
     count: 23,
   },
   {
     icon: "/assets/icons/faqs/ic_refund.svg",
     title: "Returns & Refunds",
-    description: "Process returns and refund requests",
-    color: "#4caf50",
+    description: "Start a return, monitor approvals, and review policies.",
     count: 6,
   },
   {
     icon: "/assets/icons/faqs/ic_assurances.svg",
     title: "Warranty & Claims",
-    description: "Warranty information and claim processing",
-    color: "#4caf50",
+    description: "File a claim and review coverage for GTA-backed products.",
     count: 4,
   },
 ];
@@ -85,62 +62,32 @@ const FREQUENT_QUESTIONS = [
   {
     question: "How do I reset my password?",
     answer:
-      'To reset your password, go to the login page and click on "Forgot Password". Enter your email address and follow the instructions sent to your email to create a new password.',
+      'Tap "Forgot password" on the sign-in screen, enter your email, and follow the secure link we send within minutes.',
   },
   {
     question: "What payment methods do you accept?",
     answer:
-      "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. All payments are processed securely through our payment partners.",
+      "Visa, MasterCard, AmEx, PayPal, and bank transfers are accepted. All transactions are PCI-DSS compliant.",
   },
   {
     question: "How long does shipping take?",
     answer:
-      "Standard shipping takes 3-5 business days within the continental US. Express shipping (1-2 business days) and overnight shipping are also available for an additional fee.",
+      "Standard deliveries arrive in 3–5 business days. Express upgrades (1–2 days) are available at checkout.",
   },
   {
     question: "What is your return policy?",
     answer:
-      "We offer a 30-day return policy for most items. Products must be in original condition with all packaging intact. Some items may have different return policies.",
+      "Items can be returned within 30 days if unused and in original packaging. Some custom parts carry special terms.",
   },
   {
     question: "How can I track my order?",
     answer:
-      'You can track your order by logging into your account and visiting the "My Orders" section, or by using the tracking number provided in your shipping confirmation email.',
+      'Use the tracking link from your shipping confirmation email or check "My Orders" inside your dashboard.',
   },
   {
     question: "Do you ship internationally?",
     answer:
-      "Yes, we ship to most countries worldwide. International shipping rates and delivery times vary by location. Please check our shipping calculator for specific rates.",
-  },
-];
-
-const SUPPORT_AGENTS = [
-  {
-    name: "Sarah Johnson",
-    role: "Senior Support Specialist",
-    avatar: "/assets/images/avatar/avatar_1.jpg",
-    rating: 4.9,
-    responseTime: "2-4 hours",
-    specialties: ["Billing", "Account Issues"],
-    status: "online",
-  },
-  {
-    name: "Michael Chen",
-    role: "Technical Support Engineer",
-    avatar: "/assets/images/avatar/avatar_2.jpg",
-    rating: 4.8,
-    responseTime: "1-3 hours",
-    specialties: ["Technical Issues", "Product Support"],
-    status: "online",
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Customer Success Manager",
-    avatar: "/assets/images/avatar/avatar_3.jpg",
-    rating: 4.9,
-    responseTime: "4-6 hours",
-    specialties: ["Returns", "Refunds"],
-    status: "busy",
+      "Yes. International rates and timelines vary by region and are calculated at checkout before you confirm.",
   },
 ];
 
@@ -148,29 +95,26 @@ const CONTACT_METHODS = [
   {
     icon: Phone,
     title: "Phone Support",
-    description: "Speak directly with our support team",
-    contact: "+923263333456",
-    availability: "24/7",
+    description: "Speak to a concierge specialist for urgent requests.",
+    contact: "+92 326 333 3456",
+    availability: "24/7 hotline",
     responseTime: "Immediate",
-    color: "#4caf50",
   },
   {
     icon: Email,
     title: "Email Support",
-    description: "Send us a detailed message",
+    description: "Share detailed questions, estimates, or supporting docs.",
     contact: "support@garagetunedautos.com",
-    availability: "24/7",
-    responseTime: "2-4 hours",
-    color: "#4caf50",
+    availability: "All days",
+    responseTime: "2–4 hours",
   },
   {
     icon: Chat,
     title: "Live Chat",
-    description: "Get instant help from our agents",
-    contact: "Available on website",
-    availability: "Mon-Fri, 9AM-6PM EST",
+    description: "Connect with a build advisor in real time.",
+    contact: "Launch in bottom-right corner",
+    availability: "Mon–Fri • 9am–6pm (PKT)",
     responseTime: "Instant",
-    color: "#4caf50",
   },
 ];
 
@@ -180,18 +124,18 @@ const HeroStat = ({ label, value }) => (
       px: 3,
       py: 2,
       borderRadius: 3,
-      backgroundColor: "rgba(15, 23, 42, 0.45)",
-      border: "1px solid rgba(148, 163, 184, 0.2)",
+      backgroundColor: "#ffffff",
+      border: "1px solid rgba(226, 232, 240, 0.9)",
       minWidth: { xs: "auto", sm: 200 },
-      boxShadow: "0 24px 65px rgba(2, 6, 23, 0.35)",
+      boxShadow: "0 24px 55px rgba(15, 23, 42, 0.12)",
     }}
   >
-    <Typography variant="h5" sx={{ fontWeight: 800, color: "#f8fafc" }}>
+    <Typography variant="h5" sx={{ fontWeight: 800, color: "#0f172a" }}>
       {value}
     </Typography>
     <Typography
       variant="body2"
-      sx={{ color: "rgba(226, 232, 240, 0.78)", fontWeight: 600 }}
+      sx={{ color: "rgba(71, 85, 105, 0.85)", fontWeight: 600 }}
     >
       {label}
     </Typography>
@@ -201,20 +145,17 @@ const HeroStat = ({ label, value }) => (
 const Support = () => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (_, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  // Handler for contact button click
   const handleContactClick = (method) => {
     if (method.icon === Phone) {
-      // Remove any non-digit/plus characters for tel: link
       const phone = method.contact.replace(/[^+\d]/g, "");
       window.open(`tel:${phone}`);
     } else if (method.icon === Email) {
       window.open(`mailto:${method.contact}`);
     }
-    // For Chat or other methods, do nothing (or implement as needed)
   };
 
   return (
@@ -225,7 +166,7 @@ const Support = () => {
         overflow: "hidden",
         py: { xs: 8, md: 12 },
         background:
-          "linear-gradient(180deg, #020617 0%, #0f172a 55%, #020617 100%)",
+          "linear-gradient(180deg, #f1f5f9 0%, #f8fafc 55%, #f1f5f9 100%)",
       }}
     >
       <Box
@@ -233,12 +174,11 @@ const Support = () => {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 55%), radial-gradient(circle at 80% 18%, rgba(16,185,129,0.22), transparent 60%)",
-          opacity: 0.85,
+            "radial-gradient(circle at 18% 18%, rgba(191,219,254,0.5), transparent 55%), radial-gradient(circle at 82% 22%, rgba(167,243,208,0.45), transparent 55%)",
+          opacity: 0.8,
         }}
       />
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2 }}>
-        {/* Hero Section */}
         <Box
           sx={{
             textAlign: "center",
@@ -253,8 +193,8 @@ const Support = () => {
                 textTransform: "uppercase",
                 letterSpacing: 1.6,
                 fontWeight: 700,
-                bgcolor: "rgba(148, 163, 184, 0.12)",
-                color: "#e2e8f0",
+                bgcolor: "rgba(148, 163, 184, 0.16)",
+                color: "#0f172a",
                 px: 2.5,
               }}
             />
@@ -263,8 +203,8 @@ const Support = () => {
               component="h1"
               sx={{
                 fontWeight: 800,
-                color: "#f8fafc",
-                fontSize: { xs: "2.6rem", md: "3.8rem" },
+                color: "#0f172a",
+                fontSize: { xs: "2.6rem", md: "3.6rem" },
                 maxWidth: 720,
                 lineHeight: 1.1,
               }}
@@ -276,7 +216,7 @@ const Support = () => {
               variant="h6"
               sx={{
                 maxWidth: 720,
-                color: "rgba(226, 232, 240, 0.82)",
+                color: "rgba(71, 85, 105, 0.8)",
                 lineHeight: 1.7,
                 fontWeight: 500,
               }}
@@ -297,39 +237,8 @@ const Support = () => {
               <HeroStat label="Live agents" value="24/7" />
             </Stack>
           </Stack>
-
-          {/* <Box sx={{ textAlign: "center", maxWidth: 500, mx: "auto" }}>
-            <TextField
-              fullWidth
-              placeholder="Search for help..."
-              variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: "white",
-                  "& fieldset": {
-                    borderColor: "#4caf50",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#00ff88",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#00ff88",
-                  },
-                },
-                "& .MuiInputBase-input": {
-                  color: "white",
-                  "&::placeholder": {
-                    color: "rgba(255, 255, 255, 0.6)",
-                    opacity: 1,
-                  },
-                },
-              }}
-            />
-          </Box> */}
         </Box>
 
-        {/* Support Categories */}
         <Box mb={8}>
           <Typography
             variant="h3"
@@ -553,158 +462,12 @@ const Support = () => {
           </Grid>
         </Box>
 
-        {/* Support Team */}
-        {/* <Box mb={8}>
-          <Typography
-            variant="h3"
-            sx={{
-              color: "#4caf50",
-              textAlign: "center",
-              mb: 6,
-              fontWeight: 700,
-            }}>
-            Meet our support team
-          </Typography>
-
-          <Grid container spacing={4}>
-            {SUPPORT_AGENTS.map((agent, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Card
-                  sx={{
-                    backgroundColor: "transparent",
-                    border: "1px solid #4caf50",
-                    borderRadius: 3,
-                    p: 4,
-                  }}>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    alignItems="center"
-                    sx={{ mb: 3 }}>
-                    <Avatar
-                      src={agent.avatar}
-                      sx={{
-                        width: 60,
-                        height: 60,
-                        border: "3px solid",
-                        borderColor:
-                          agent.status === "online" ? "#4caf50" : "#00ff88",
-                      }}
-                    />
-                    <Box sx={{ flex: 1 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          color: "#4caf50",
-                          fontWeight: 700,
-                        }}>
-                        {agent.name}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "#ffffff",
-                          opacity: 0.9,
-                        }}>
-                        {agent.role}
-                      </Typography>
-                    </Box>
-                    <Chip
-                      label={agent.status}
-                      size="small"
-                      sx={{
-                        backgroundColor:
-                          agent.status === "online"
-                            ? "rgba(0, 255, 136, 0.1)"
-                            : "rgba(255, 193, 7, 0.1)",
-                        color:
-                          agent.status === "online" ? "#4caf50" : "#00ff88",
-                        border: "1px solid",
-                        borderColor:
-                          agent.status === "online" ? "#4caf50" : "#00ff88",
-                      }}
-                    />
-                  </Stack>
-
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    alignItems="center"
-                    sx={{ mb: 2 }}>
-                    <Star sx={{ color: "#00ff88", fontSize: 20 }} />
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "#ffffff",
-                        fontWeight: 600,
-                      }}>
-                      {agent.rating}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "#ffffff",
-                        opacity: 0.9,
-                      }}>
-                      rating
-                    </Typography>
-                  </Stack>
-
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    alignItems="center"
-                    sx={{ mb: 3 }}>
-                    <AccessTime
-                      sx={{ color: "#ffffff", opacity: 0.7, fontSize: 20 }}
-                    />
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "#ffffff",
-                        opacity: 0.9,
-                      }}>
-                      Response time: {agent.responseTime}
-                    </Typography>
-                  </Stack>
-
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#4caf50",
-                      mb: 2,
-                      fontWeight: 600,
-                    }}>
-                    Specialties:
-                  </Typography>
-
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                    {agent.specialties.map((specialty, idx) => (
-                      <Chip
-                        key={idx}
-                        label={specialty}
-                        size="small"
-                        sx={{
-                          backgroundColor: "rgba(0, 255, 136, 0.1)",
-                          color: "#4caf50",
-                          border: "1px solid #4caf50",
-                          mb: 1,
-                        }}
-                      />
-                    ))}
-                  </Stack>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box> */}
-
         {/* FAQ Section */}
         <Box mb={8}>
           <Typography
             variant="h3"
             sx={{
-              color: "#f8fafc",
+              color: "#0f172a",
               textAlign: "center",
               mb: 6,
               fontWeight: 700,
@@ -714,42 +477,43 @@ const Support = () => {
 
           <Paper
             sx={{
-              background:
-                "linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.6) 100%)",
-              border: "1px solid rgba(96, 165, 250, 0.2)",
+              backgroundColor: "#ffffff",
+              border: "1px solid rgba(226, 232, 240, 0.9)",
               borderRadius: 4,
-              backdropFilter: "blur(16px)",
+              boxShadow: "0 24px 60px rgba(15, 23, 42, 0.1)",
             }}>
             {FREQUENT_QUESTIONS.map((faq, index) => (
               <Accordion
                 key={index}
                 expanded={expanded === `panel${index}`}
                 onChange={handleChange(`panel${index}`)}
+                disableGutters
+                elevation={0}
+                square
                 sx={{
-                  backgroundColor: "transparent !important",
-                  "&:before": {
-                    display: "none",
-                  },
+                  "&:before": { display: "none" },
                   "& .MuiAccordionSummary-root": {
-                    color: "#f8fafc",
+                    px: { xs: 2, md: 3 },
+                    py: { xs: 2, md: 2.5 },
+                    color: "#0f172a",
                     "&:hover": {
-                      backgroundColor: "rgba(37, 99, 235, 0.12)",
+                      backgroundColor: "rgba(226, 232, 240, 0.45)",
                     },
                   },
                   "& .MuiAccordionDetails-root": {
-                    color: "rgba(226, 232, 240, 0.85)",
+                    px: { xs: 2, md: 3 },
+                    pb: { xs: 2.5, md: 3 },
+                    color: "rgba(71, 85, 105, 0.9)",
                   },
                 }}>
                 <AccordionSummary
-                  expandIcon={<ExpandMore sx={{ color: "#60a5fa" }} />}>
+                  expandIcon={<ExpandMore sx={{ color: "#2563eb" }} />}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>
                     {faq.question}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography
-                    variant="body1"
-                    sx={{ lineHeight: 1.65, color: "rgba(226, 232, 240, 0.85)" }}>
+                  <Typography variant="body1" sx={{ lineHeight: 1.65 }}>
                     {faq.answer}
                   </Typography>
                 </AccordionDetails>

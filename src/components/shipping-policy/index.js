@@ -1,403 +1,408 @@
-import React from "react";
 import {
   Box,
   Container,
   Typography,
+  Grid,
   Card,
   CardContent,
-  Grid,
+  Stack,
+  Chip,
+  Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider,
-  Chip,
-  Stack,
-  Alert,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
 } from "@mui/material";
 import {
   LocalShipping,
-  LocationOn,
-  Schedule,
-  Payment,
-  Security,
-  CheckCircle,
-  Warning,
-  Info,
-  SupportAgent,
+  Speed,
+  TrackChanges,
   Phone,
   Email,
   WhatsApp,
-  Speed,
-  LocalOffer,
-  TrackChanges,
+  Shield,
+  AccessTime,
+  CheckCircle,
 } from "@mui/icons-material";
 
-const ShippingPolicy = () => {
-  const contactInfo = [
-    {
-      icon: <Phone color="primary" />,
-      label: "Phone",
-      value: "+923263333456",
-    },
-    {
-      icon: <Email color="primary" />,
-      label: "Email",
-      value: "customersupport@gtaAutos.co.uk",
-    },
-    {
-      icon: <WhatsApp color="success" />,
-      label: "WhatsApp",
-      value: "+923263333456",
-    },
-  ];
-
-  // Prices and thresholds converted to Pakistani Rupees (₨)
-  const shippingMethods = [
-    {
-      name: "Standard Delivery",
-      time: "3-5 Business Days",
+const tiers = [
+  {
+    name: "Standard",
       price: "₨1,800",
-      features: [
-        "Free on orders over ₨18,000",
-        "Tracking included",
-        "Signature required",
-      ],
-      icon: <LocalShipping color="primary" />,
-    },
-    {
-      name: "Express Delivery",
-      time: "1-2 Business Days",
+    window: "3 – 5 business days",
+    perks: [
+      "Free above ₨18,000",
+      "Tracked handoff and signature",
+      "Automated status alerts",
+    ],
+    icon: <LocalShipping sx={{ color: "#2563eb" }} />,
+  },
+  {
+    name: "Express",
       price: "₨3,600",
-      features: [
-        "Priority handling",
-        "Real-time tracking",
-        "Next day delivery available",
-      ],
-      icon: <Speed color="success" />,
-    },
-    {
-      name: "Premium Delivery",
-      time: "Same Day (Limited Areas)",
+    window: "1 – 2 business days",
+    perks: [
+      "Priority picking and packing",
+      "Dedicated courier network",
+      "Weekend dispatch available",
+    ],
+    icon: <Speed sx={{ color: "#0f766e" }} />,
+  },
+  {
+    name: "Premium",
       price: "₨7,200",
-      features: [
-        "Same day delivery",
-        "Premium handling",
-        "Personal delivery confirmation",
-      ],
-      icon: <TrackChanges color="warning" />,
-    },
-  ];
+    window: "Same-day (select cities)",
+    perks: [
+      "Direct-to-door concierge",
+      "Photo confirmation on delivery",
+      "On-site inspection on request",
+    ],
+    icon: <TrackChanges sx={{ color: "#ea580c" }} />,
+  },
+];
 
-  const deliveryAreas = [
-    "United Kingdom (Mainland)",
-    "Northern Ireland",
-    "Scotland Highlands & Islands",
-    "Channel Islands",
-    "Isle of Man",
-  ];
+const assurances = [
+  "All parcels travel with foam-in-place packaging and sealed crates for sensitive components.",
+  "Every order receives a live tracking link the moment it leaves our warehouse.",
+  "Flexible delivery windows — choose evening or weekend drop-offs in major metros.",
+  "Customs-ready documentation for international consignments and import builds.",
+];
 
-  const excludedAreas = [
-    "Remote Scottish Islands",
-    "Some Channel Islands",
-    "International destinations (contact us for quotes)",
-  ];
+const checkpoints = [
+  { label: "Order confirmed", detail: "Instant email + SMS acknowledgement" },
+  { label: "Prepared for dispatch", detail: "Technician inspection & packing" },
+  { label: "Courier collected", detail: "Tracking ID activated" },
+  { label: "In-transit updates", detail: "Location refreshed at key hubs" },
+  { label: "Delivered", detail: "Signature and photo proof saved to your account" },
+];
 
-  const shippingFeatures = [
-    "Free shipping on orders over ₨18,000",
-    "Real-time tracking for all orders",
-    "Secure packaging to protect your items",
-    "Flexible delivery options",
-    "Customer support throughout delivery",
-  ];
+const contactOptions = [
+  { icon: <Phone fontSize="small" />, label: "Concierge line", value: "+92 326 333 3456" },
+  { icon: <WhatsApp fontSize="small" />, label: "WhatsApp updates", value: "+92 326 333 3456" },
+  { icon: <Email fontSize="small" />, label: "Support mailbox", value: "customersupport@garagetunedautos.com" },
+];
 
-  const deliveryTimeline = [
-    {
-      step: "Order Placed",
-      time: "Immediate",
-      description: "Order confirmation sent via email",
-      icon: <CheckCircle color="success" />,
-    },
-    {
-      step: "Processing",
-      time: "1-2 hours",
-      description: "Order verified and prepared for shipping",
-      icon: <Info color="info" />,
-    },
-    {
-      step: "Shipped",
-      time: "Same day",
-      description: "Package picked up by courier",
-      icon: <LocalShipping color="primary" />,
-    },
-    {
-      step: "In Transit",
-      time: "1-5 days",
-      description: "Package on its way to you",
-      icon: <TrackChanges color="warning" />,
-    },
-    {
-      step: "Delivered",
-      time: "As scheduled",
-      description: "Package delivered to your address",
-      icon: <CheckCircle color="success" />,
-    },
-  ];
-
+export default function ShippingPolicy() {
   return (
-    <Container maxWidth="xl" sx={{ py: 4, mt: "50px" }}>
-      {/* Header Section */}
-      <Box textAlign="center" mb={6}>
-        <Typography
-          variant="h3"
-          component="h1"
-          gutterBottom
-          sx={{ fontWeight: "bold", color: "primary.main" }}>
-          Shipping Policy
-        </Typography>
-        <Typography variant="h6" color="#fff" sx={{ mb: 3 }}>
-          Fast, Reliable, and Secure Delivery to Your Doorstep
-        </Typography>
-
-        {/* Contact Information Cards */}
-        <Grid container spacing={3} justifyContent="center" mb={4}>
-          {contactInfo.map((contact, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <Card
+    <Box
+      sx={{
+        minHeight: "100vh",
+        py: { xs: 8, md: 12 },
+        background: "linear-gradient(180deg, #eef2ff 0%, #f8fafc 50%, #ffffff 100%)",
+      }}
+    >
+      <Container maxWidth="xl">
+        <Grid container spacing={{ xs: 6, md: 8 }} alignItems="center">
+          <Grid item xs={12} md={6}>
+            <Stack spacing={3}>
+              <Chip
+                label="Shipping & delivery promise"
                 sx={{
-                  height: "100%",
-                  textAlign: "center",
-                  transition: "transform 0.2s",
-                  "&:hover": { transform: "translateY(-4px)" },
-                }}>
-                {(() => {
-                  const label = contact.label.toLowerCase();
-                  let href = "#";
-                  let target = undefined;
-                  if (label.includes("phone")) {
-                    // Remove any non-digit/plus characters for tel: link
-                    const phone = contact.value.replace(/[^+\d]/g, "");
-                    href = `tel:${phone}`;
-                  } else if (label.includes("email")) {
-                    href = `mailto:${contact.value}`;
-                  } else if (label.includes("whatsapp")) {
-                    // Remove any non-digit characters for WhatsApp
-                    const phone = contact.value.replace(/[^+\d]/g, "");
-                    // WhatsApp link format: https://wa.me/<number>
-                    // Remove leading "+" for wa.me
-                    const waNumber = phone.replace(/^\+/, "");
-                    href = `https://wa.me/${waNumber}`;
-                    target = "_blank";
-                  }
-                  return (
-                    <a
-                      href={href}
-                      target={target}
-                      rel={
-                        target === "_blank" ? "noopener noreferrer" : undefined
-                      }
-                      style={{ textDecoration: "none" }}>
-                      <CardContent sx={{ cursor: "pointer" }}>
-                        <Box sx={{ mb: 2 }}>{contact.icon}</Box>
-                        <Typography
-                          variant="subtitle2"
-                          color="text.secondary"
-                          gutterBottom>
-                          {contact.label}
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          color="text.secondary"
-                          sx={{ fontWeight: "medium" }}>
-                          {contact.value}
-                        </Typography>
-                      </CardContent>
-                    </a>
-                  );
-                })()}
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-
-      {/* Main Content */}
-      <Grid container spacing={4}>
-        {/* Left Column */}
-        <Grid item xs={12} lg={8}>
-          {/* Policy Introduction */}
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
+                  alignSelf: "flex-start",
+                  textTransform: "uppercase",
+                  letterSpacing: 1.6,
+                  fontWeight: 700,
+                  bgcolor: "rgba(148, 163, 184, 0.18)",
+                  color: "#0f172a",
+                  px: 2.5,
+                }}
+              />
               <Typography
-                variant="h5"
-                gutterBottom
-                sx={{ fontWeight: "bold", color: "primary.main" }}>
-                Garage Tuned Autos Auto – Shipping & Delivery Policy
+                variant="h2"
+                sx={{
+                  fontWeight: 800,
+                  color: "#0f172a",
+                  fontSize: { xs: "2.6rem", md: "3.6rem" },
+                  lineHeight: 1.1,
+                }}
+              >
+                Performance parts, delivered like the builds we tune.
               </Typography>
-              <Typography variant="body1" paragraph>
-                At Garage Tuned Autos Auto, we understand that fast and reliable
-                shipping is crucial to your shopping experience. We partner with
-                leading courier services to ensure your orders reach you safely
-                and on time.
-              </Typography>
-              <Alert severity="info" sx={{ mt: 2 }}>
-                <Typography variant="body2">
-                  <strong>Note:</strong> Delivery times may vary during peak
-                  seasons, holidays, or adverse weather conditions. We'll keep
-                  you updated with real-time tracking information.
-                </Typography>
-              </Alert>
-            </CardContent>
-          </Card>
-
-          {/* Shipping Methods */}
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
               <Typography
                 variant="h6"
-                gutterBottom
                 sx={{
-                  fontWeight: "bold",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                }}>
-                <LocalShipping color="primary" />
-                Available Shipping Methods
+                  color: "rgba(71, 85, 105, 0.85)",
+                  lineHeight: 1.7,
+                  maxWidth: 540,
+                }}
+              >
+                GTA partners with premium couriers across Pakistan and the GCC,
+                ensuring every package is protected, tracked, and delivered on
+                your schedule. Expect studio-grade handling, whether it’s a
+                ceramic kit or a full aero assembly.
               </Typography>
-
-              <Grid container spacing={3}>
-                {shippingMethods.map((method, index) => (
-                  <Grid item xs={12} md={4} key={index}>
-                    <Card variant="outlined" sx={{ height: "100%" }}>
+              <Grid container spacing={2}>
+                {contactOptions.map((item) => (
+                  <Grid key={item.label} item xs={12} sm={4}>
+                    <Card
+                      elevation={0}
+                      sx={{
+                        height: "100%",
+                        borderRadius: 3,
+                        border: "1px solid rgba(226, 232, 240, 0.9)",
+                        boxShadow: "0 18px 45px rgba(15, 23, 42, 0.08)",
+                        backgroundColor: "#ffffff",
+                      }}
+                    >
                       <CardContent>
-                        <Box
-                          sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                          {method.icon}
-                          <Typography
-                            variant="h6"
-                            sx={{ ml: 1, fontWeight: "bold" }}>
-                            {method.name}
-                          </Typography>
-                        </Box>
-
                         <Typography
-                          variant="h5"
-                          color="primary"
-                          sx={{ fontWeight: "bold", mb: 1 }}>
-                          {method.price}
+                          variant="subtitle2"
+                          sx={{ display: "flex", alignItems: "center", gap: 1, color: "#2563eb" }}
+                        >
+                          {item.icon}
+                          {item.label}
                         </Typography>
-
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ mb: 2 }}>
-                          {method.time}
+                        <Typography variant="body1" sx={{ mt: 1, fontWeight: 600, color: "#0f172a" }}>
+                          {item.value}
                         </Typography>
-
-                        <List dense>
-                          {method.features.map((feature, featureIndex) => (
-                            <ListItem key={featureIndex} sx={{ px: 0 }}>
-                              <ListItemIcon sx={{ minWidth: 24 }}>
-                                <CheckCircle color="success" fontSize="small" />
-                              </ListItemIcon>
-                              <ListItemText primary={feature} />
-                            </ListItem>
-                          ))}
-                        </List>
                       </CardContent>
                     </Card>
                   </Grid>
                 ))}
               </Grid>
-            </CardContent>
-          </Card>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box
+              component="img"
+              src="/assets/images/about/about_vision.jpg"
+              alt="Shipping operations"
+              sx={{
+                width: "100%",
+                borderRadius: 5,
+                border: "1px solid rgba(226, 232, 240, 0.9)",
+                boxShadow: "0 40px 80px rgba(15, 23, 42, 0.12)",
+                objectFit: "cover",
+              }}
+            />
+          </Grid>
+        </Grid>
 
-          {/* Delivery Areas */}
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
+        {/* Delivery tiers */}
               <Typography
-                variant="h6"
-                gutterBottom
-                sx={{
-                  fontWeight: "bold",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                }}>
-                <LocationOn color="primary" />
-                Delivery Areas
+          variant="overline"
+          sx={{ color: "#2563eb", letterSpacing: 2, mt: { xs: 8, md: 10 }, display: "block" }}
+        >
+          Options tailored to your timeline
+        </Typography>
+        <Typography variant="h4" sx={{ fontWeight: 800, color: "#0f172a", mb: 4 }}>
+          Choose the lane that matches your build schedule.
               </Typography>
 
               <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                  <Typography
-                    variant="subtitle1"
-                    gutterBottom
-                    sx={{ fontWeight: "bold", color: "success.main" }}>
-                    ✅ We Deliver To:
+          {tiers.map((tier) => (
+            <Grid key={tier.name} item xs={12} md={4}>
+              <Card
+                elevation={0}
+                sx={{
+                  height: "100%",
+                  borderRadius: 4,
+                  border: "1px solid rgba(226, 232, 240, 0.9)",
+                  boxShadow: "0 24px 60px rgba(15, 23, 42, 0.08)",
+                }}
+              >
+                <CardContent>
+                  <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
+                    {tier.icon}
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: "#0f172a" }}>
+                      {tier.name}
+                    </Typography>
+                  </Stack>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: "#2563eb" }}>
+                    {tier.price}
                   </Typography>
-                  <List>
-                    {deliveryAreas.map((area, index) => (
-                      <ListItem key={index} sx={{ px: 0 }}>
-                        <ListItemIcon sx={{ minWidth: 36 }}>
-                          <CheckCircle color="success" fontSize="small" />
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "rgba(71, 85, 105, 0.75)", mt: 1, mb: 2 }}
+                  >
+                    {tier.window}
+                  </Typography>
+                  <List dense>
+                    {tier.perks.map((perk) => (
+                      <ListItem key={perk} sx={{ px: 0 }}>
+                        <ListItemIcon sx={{ minWidth: 28 }}>
+                          <CheckCircle sx={{ color: "#16a34a", fontSize: 18 }} />
                         </ListItemIcon>
-                        <ListItemText primary={area} />
+                        <ListItemText primary={perk} />
                       </ListItem>
                     ))}
                   </List>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
                 </Grid>
 
-                <Grid item xs={12} md={6}>
-                  <Typography
-                    variant="subtitle1"
-                    gutterBottom
-                    sx={{ fontWeight: "bold", color: "warning.main" }}>
-                    ⚠️ Limited/Excluded Areas:
+        {/* Assurances */}
+        <Card
+          elevation={0}
+          sx={{
+            mt: { xs: 8, md: 10 },
+            borderRadius: 4,
+            border: "1px solid rgba(226, 232, 240, 0.9)",
+            boxShadow: "0 24px 60px rgba(15, 23, 42, 0.08)",
+            backgroundColor: "#ffffff",
+          }}
+        >
+          <CardContent>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={3} alignItems="flex-start">
+              <Box sx={{ minWidth: { md: 240 } }}>
+                <Typography variant="overline" sx={{ color: "#2563eb", letterSpacing: 2 }}>
+                  Our guarantee
+                </Typography>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: "#0f172a", mt: 1 }}>
+                  What every GTA shipment includes.
+                </Typography>
+              </Box>
+              <Grid container spacing={2}>
+                {assurances.map((item) => (
+                  <Grid key={item} item xs={12} sm={6}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 1.5,
+                        p: 2,
+                        borderRadius: 3,
+                        bgcolor: "rgba(37, 99, 235, 0.08)",
+                      }}
+                    >
+                      <Shield sx={{ color: "#2563eb", mt: 0.5 }} />
+                      <Typography variant="body2" sx={{ color: "rgba(30, 41, 59, 0.9)", lineHeight: 1.7 }}>
+                        {item}
                   </Typography>
-                  <List>
-                    {excludedAreas.map((area, index) => (
-                      <ListItem key={index} sx={{ px: 0 }}>
-                        <ListItemIcon sx={{ minWidth: 36 }}>
-                          <Warning color="warning" fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText primary={area} />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Grid>
+                    </Box>
+                  </Grid>
+                ))}
               </Grid>
+            </Stack>
             </CardContent>
           </Card>
 
-          {/* Shipping Features */}
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
-              <Typography
-                variant="h6"
-                gutterBottom
+        {/* Process timeline */}
+        <Grid
+          container
+          spacing={3}
+          sx={{ mt: { xs: 8, md: 10 } }}
+        >
+          {checkpoints.map((step) => (
+            <Grid key={step.label} item xs={12} md={4}>
+              <Card
+                elevation={0}
                 sx={{
-                  fontWeight: "bold",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                }}>
-                <Security color="primary" />
-                Our Shipping Features
+                  height: "100%",
+                  borderRadius: 4,
+                  border: "1px solid rgba(226, 232, 240, 0.9)",
+                  boxShadow: "0 16px 45px rgba(15, 23, 42, 0.06)",
+                  backgroundColor: "#ffffff",
+                }}
+              >
+                <CardContent>
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ color: "#2563eb", textTransform: "uppercase", letterSpacing: 1 }}
+                  >
+                    {step.label}
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: "#0f172a", mt: 0.5 }}>
+                    {step.detail}
               </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
-              <Grid container spacing={2}>
-                {shippingFeatures.map((feature, index) => (
-                  <Grid item xs={12} sm={6} key={index}>
-                    <Box
+        {/* Operating hours & support */}
+        <Grid
+          container
+          spacing={{ xs: 6, md: 8 }}
+          sx={{ mt: { xs: 8, md: 10 } }}
+        >
+          <Grid item xs={12} md={6}>
+            <Card
+              elevation={0}
+              sx={{
+                borderRadius: 4,
+                border: "1px solid rgba(226, 232, 240, 0.9)",
+                boxShadow: "0 24px 60px rgba(15, 23, 42, 0.08)",
+                backgroundColor: "#ffffff",
+              }}
+            >
+              <CardContent>
+                <Typography variant="overline" sx={{ color: "#2563eb", letterSpacing: 2 }}>
+                  Operating hours
+                </Typography>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: "#0f172a", mt: 1 }}>
+                  Dispatch windows & cut-off times.
+                </Typography>
+                <Divider sx={{ my: 3 }} />
+                <Stack spacing={1.5}>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <AccessTime sx={{ color: "#2563eb" }} />
+                    <Typography variant="body1" sx={{ color: "rgba(30, 41, 59, 0.85)" }}>
+                      Orders placed before 2pm ship same day (Mon – Sat)
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <AccessTime sx={{ color: "#2563eb" }} />
+                    <Typography variant="body1" sx={{ color: "rgba(30, 41, 59, 0.85)" }}>
+                      Express cut-off extended to 5pm for Lahore & Islamabad
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <AccessTime sx={{ color: "#2563eb" }} />
+                    <Typography variant="body1" sx={{ color: "rgba(30, 41, 59, 0.85)" }}>
+                      Premium same-day slots confirmed by concierge after booking
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card
+              elevation={0}
+              sx={{
+                borderRadius: 4,
+                border: "1px solid rgba(226, 232, 240, 0.9)",
+                boxShadow: "0 24px 60px rgba(15, 23, 42, 0.08)",
+                background: "linear-gradient(135deg, rgba(37,99,235,0.12) 0%, rgba(20,184,166,0.12) 100%)",
+              }}
+            >
+              <CardContent>
+                <Typography variant="overline" sx={{ color: "#2563eb", letterSpacing: 2 }}>
+                  Need a custom quote?
+                </Typography>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: "#0f172a", mt: 1 }}>
+                  We handle oversized kits and international freight daily.
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "rgba(71, 85, 105, 0.8)", lineHeight: 1.7, mt: 2 }}
+                >
+                  Share build sheets, sourcing invoices, or delivery specs with the concierge
+                  team for bespoke routing and insurance coverage.
+                </Typography>
+                <Stack spacing={1.5} sx={{ mt: 3 }}>
+                  <Typography variant="body1" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Phone fontSize="small" /> +92 326 333 3456
+                  </Typography>
+                  <Typography variant="body1" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Email fontSize="small" /> logistics@garagetunedautos.com
+                  </Typography>
+                  <Typography variant="body1" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <WhatsApp fontSize="small" /> Instant updates via concierge chat
+                  </Typography>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+}
                       sx={{
                         display: "flex",
                         alignItems: "center",

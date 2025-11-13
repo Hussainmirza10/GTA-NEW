@@ -15,9 +15,9 @@ const ForumHeader = ({
         position: "relative",
         overflow: "hidden",
         background:
-          "linear-gradient(135deg, rgba(15, 118, 110, 0.88) 0%, rgba(79, 70, 229, 0.82) 60%, rgba(30, 64, 175, 0.85) 100%)",
-        color: "#f8fafc",
-        boxShadow: "0 45px 120px rgba(8, 15, 40, 0.45)",
+          "linear-gradient(135deg, rgba(239, 246, 255, 0.96) 0%, rgba(224, 242, 254, 0.95) 50%, rgba(240, 253, 244, 0.95) 100%)",
+        color: "#0f172a",
+        boxShadow: "0 32px 90px rgba(15, 23, 42, 0.12)",
       }}
     >
       <Box
@@ -25,7 +25,7 @@ const ForumHeader = ({
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(circle at top right, rgba(255,255,255,0.22) 0%, transparent 55%), radial-gradient(circle at bottom left, rgba(56,189,248,0.28) 0%, transparent 50%)",
+            "radial-gradient(circle at top right, rgba(59,130,246,0.25) 0%, transparent 55%), radial-gradient(circle at bottom left, rgba(34,197,94,0.18) 0%, transparent 55%)",
         }}
       />
 
@@ -35,8 +35,8 @@ const ForumHeader = ({
             label="Join the conversation"
             sx={{
               alignSelf: "flex-start",
-              bgcolor: "rgba(15, 23, 42, 0.35)",
-              color: "#f1f5f9",
+              bgcolor: "rgba(15, 23, 42, 0.08)",
+              color: "#0f172a",
               textTransform: "uppercase",
               fontWeight: 700,
               letterSpacing: 1.5,
@@ -58,13 +58,13 @@ const ForumHeader = ({
           <Typography
             variant="h6"
             sx={{
-              color: "rgba(226, 232, 240, 0.85)",
+              color: "rgba(51, 65, 85, 0.82)",
               maxWidth: 520,
               lineHeight: 1.65,
             }}
           >
             Swap builds, troubleshoot gremlins, and drop inspiration with the
-            GTA crew. Every topic keeps the culture moving forward.
+            GTA crew. Every topic keeps the community moving forward.
           </Typography>
         </Stack>
 
@@ -90,9 +90,9 @@ const ForumHeader = ({
                 key={tag}
                 label={`#${tag}`}
                 sx={{
-                  bgcolor: "rgba(15, 23, 42, 0.28)",
-                  color: "#e2e8f0",
-                  border: "1px solid rgba(226, 232, 240, 0.25)",
+                  bgcolor: "rgba(148, 163, 184, 0.2)",
+                  color: "#0f172a",
+                  border: "1px solid rgba(148, 163, 184, 0.32)",
                   borderRadius: "999px",
                   px: 1.5,
                 }}
@@ -112,21 +112,18 @@ const StatBlock = ({ label, value }) => (
       px: 3,
       py: 2.5,
       borderRadius: 3,
-      bgcolor: "rgba(15, 23, 42, 0.35)",
-      border: "1px solid rgba(226, 232, 240, 0.2)",
+      bgcolor: "#ffffff",
+      border: "1px solid rgba(226, 232, 240, 0.9)",
       minWidth: { xs: "auto", sm: 180 },
-      boxShadow: "0 24px 65px rgba(15, 23, 42, 0.28)",
+      boxShadow: "0 24px 55px rgba(15, 23, 42, 0.12)",
     }}
   >
-    <Typography
-      variant="h4"
-      sx={{ fontWeight: 800, color: "#f8fafc" }}
-    >
+    <Typography variant="h4" sx={{ fontWeight: 800 }}>
       {value}
     </Typography>
     <Typography
       variant="body2"
-      sx={{ color: "rgba(226, 232, 240, 0.75)", fontWeight: 600 }}
+      sx={{ color: "rgba(71, 85, 105, 0.85)", fontWeight: 600 }}
     >
       {label}
     </Typography>
