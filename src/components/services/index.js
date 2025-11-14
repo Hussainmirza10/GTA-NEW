@@ -596,17 +596,32 @@ const Services = () => {
           }}
         />
         <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2 }}>
-          <Stack spacing={1.5} alignItems="center" sx={{ mb: { xs: 6, md: 8 } }}>
+        <Stack spacing={1.5} alignItems="center" sx={{ mb: { xs: 6, md: 8 } }}>
+          <Box
+            sx={{
+              backgroundColor: "rgba(248, 250, 252, 0.92)",
+              color: "#080B13",
+              px: 3,
+              py: 1,
+              borderRadius: 999,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 4,
+              boxShadow: "0 16px 35px rgba(15, 23, 42, 0.3)",
+            }}
+          >
+            Tailored Programs
+          </Box>
             <Typography
               variant="overline"
               sx={{
                 letterSpacing: 6,
-                color: "rgba(191,219,254,0.92)",
+              color: "rgba(191,219,254,0.92)",
                 fontWeight: 800,
                 textTransform: "uppercase",
               }}
             >
-              Tailored Programs
+            Tailored Programs
             </Typography>
             <Typography
               variant="h3"
