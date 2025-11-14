@@ -1,0 +1,645 @@
+'use client'
+import { useState, useEffect } from 'react';
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import { alpha } from "@mui/material/styles";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Unstable_Grid2";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+
+import { paths } from "src/routes/paths";
+import { usePathname } from "src/routes/hooks";
+import { RouterLink } from "src/routes/components";
+
+import { _socials } from "src/_mock";
+
+import Logo from "src/components/logo";
+import Iconify from "src/components/iconify";
+
+// ----------------------------------------------------------------------
+
+const QUICK_LINKS = [
+  { name: "Shop", href: "/shop" },
+  { name: "Seasonal Products", href: "/seasonal-products" },
+  { name: "Best Sellers", href: "/best-sellers" },
+  { name: "Flash Sale", href: "/flash-sale" },
+  { name: "Collections", href: "/collections" },
+  { name: "Products", href: "/products" },
+];
+
+const CUSTOMER_SERVICES = [
+  { name: "Support", href: "/support" },
+  { name: "Privacy Policy", href: "/privacy-policy" },
+  { name: "Terms & Conditions", href: "/terms-and-conditions" },
+  { name: "Shipping Policy", href: "/shipping-policy" },
+  { name: "Cancellation & Refund Policy", href: "/cancellation-refund-policy" },
+];
+
+const SOCIAL_LINKS = [
+  // { name: "Facebook", icon: "mdi:facebook", href: "https://m.facebook.com/GarageTunedAutos/", color: "#1877F2" },
+  {
+    name: "Instagram",
+    icon: "mdi:instagram",
+    href: "https://www.instagram.com/garagetunedautos?igsh=MTl0d3cyZWZ1OWRjag==",
+    color: "#E4405F",
+  },
+  // { name: "LinkedIn", icon: "mdi:linkedin", href: "#", color: "#0077B5" },
+  {
+    name: "YouTube",
+    icon: "mdi:youtube",
+    href: "https://youtube.com/@garagetunedautos?si=qI3aK4AOdCpDp7ap",
+    color: "#FF0000",
+  },
+];
+
+// ----------------------------------------------------------------------
+
+export default function Footer() {
+  const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  // Handle responsive sizing and scroll detection
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    const checkScrollable = () => {
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+      const windowHeight = window.innerHeight;
+      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+      
+   
+      // Show button if page is scrollable and user has scrolled down at least 200px
+      const isScrollable = documentHeight > windowHeight + 100; // Add buffer for better UX
+      const hasScrolled = scrollPosition > 200;
+     
+      
+      setShowBackToTop(isScrollable && hasScrolled);
+    };
+
+    // Set initial values
+    handleResize();
+    checkScrollable();
+    
+    // Add event listeners
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', checkScrollable);
+    window.addEventListener('load', checkScrollable); // Check again after page fully loads
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', checkScrollable);
+      window.removeEventListener('load', checkScrollable);
+    };
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    // Try multiple scroll methods for better compatibility
+    const scrollToTopMethods = [
+      // Method 1: Check for SimpleBar container
+      () => {
+        const simpleBarElement = document.querySelector('.simplebar-content-wrapper');
+        if (simpleBarElement) {
+          simpleBarElement.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          return true;
+        }
+        return false;
+      },
+      
+      // Method 2: Check for main scroll container or any scrollable parent
+      () => {
+        const scrollableElements = [
+          document.querySelector('main'),
+          document.querySelector('#__next'),
+          document.querySelector('[data-simplebar]'),
+          document.querySelector('.MuiBox-root'), // Material-UI Box containers
+          ...document.querySelectorAll('[style*="overflow"]') // Any element with overflow styles
+        ].filter(Boolean);
+        
+        for (const element of scrollableElements) {
+          if (element && element.scrollHeight > element.clientHeight) {
+            element.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+            return true;
+          }
+        }
+        return false;
+      },
+      
+      // Method 3: Force document scroll with animation
+      () => {
+        const startPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const startTime = performance.now();
+        const duration = 500; // 500ms animation
+        
+        const animateScroll = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function (ease-out)
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentPosition = startPosition * (1 - easeOut);
+          
+          document.documentElement.scrollTop = currentPosition;
+          document.body.scrollTop = currentPosition;
+          
+          if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+          }
+        };
+        
+        requestAnimationFrame(animateScroll);
+        return true;
+      },
+      
+      // Method 4: Modern smooth scroll on window
+      () => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+        return true;
+      },
+      
+      // Method 5: Direct document scroll
+      () => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0; // For Safari
+        return true;
+      }
+    ];
+    
+    // Try each method until one works
+    for (const method of scrollToTopMethods) {
+      try {
+        if (method()) {
+          break;
+        }
+      } catch (error) {
+        console.log('Scroll method failed:', error);
+      }
+    }
+  };
+
+  const homePage = pathname === "/";
+
+  const simpleFooter = (
+    <Box
+      component="footer"
+      sx={{
+        py: 5,
+        textAlign: "center",
+        position: "relative",
+        bgcolor: "background.default",
+      }}>
+      <Container>
+        <Logo sx={{ mb: 1, mx: "auto" }} />
+
+        <Typography variant="caption" component="div">
+          © All rights reserved
+        </Typography>
+      </Container>
+    </Box>
+  );
+
+  const mainFooter = (
+    <Box
+      component="footer"
+      sx={{
+        position: "relative",
+        background: "linear-gradient(135deg, #1F2937 0%, #374151 50%, #1F2937 100%)",
+        minHeight: { xs: "1000px", md: "550px" },
+        overflow: "hidden",
+        pb: { xs: 16, md: 12 },
+      }}>
+      {/* Background Image */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "url(/assets/footerBg.webp)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.1,
+          zIndex: 1,
+        }}
+      />
+
+      {/* Modern Gradient Overlay */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background:
+            "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(147, 51, 234, 0.05) 50%, rgba(16, 185, 129, 0.05) 100%)",
+          zIndex: 2,
+        }}
+      />
+
+      <Container
+        sx={{
+          pt: { xs: 8, md: 10 },
+          pb: { xs: 14, md: 12 }, // Increased bottom padding for mobile
+          position: "relative",
+          zIndex: 3,
+        }}>
+        {/* Main Content Grid */}
+        <Grid container spacing={{ xs: 3, md: 4 }}>
+          {/* Contact Us Column */}
+          <Grid xs={12} md={4}>
+            {/* Logo positioned above Contact Us */}
+            <Box sx={{ mb: 4, textAlign: "left" }}>
+              <Box
+                component="img"
+                src="/assets/logo.webp"
+                alt="Garage Tuned Autos"
+                sx={{
+                  height: { xs: "50px", md: "60px" },
+                  width: "auto",
+                  mb: 2,
+                }}
+              />
+            </Box>
+
+            <Typography
+              variant="h6"
+              sx={{
+                background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontWeight: "bold",
+                mb: 2,
+                fontSize: { xs: "16px", md: "18px" },
+                textTransform: "uppercase",
+              }}>
+              CONTACT US
+            </Typography>
+            <Box
+              sx={{
+                width: "50px",
+                height: "3px",
+                background: "linear-gradient(90deg, #10B981 0%, #9333EA 100%)",
+                borderRadius: "2px",
+                mb: 3,
+              }}
+            />
+
+            {/* WhatsApp */}
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ mb: 2, alignItems: "center" }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#10B981",
+                  fontWeight: "bold",
+                  minWidth: "80px",
+                  fontSize: { xs: "12px", md: "14px" },
+                }}>
+                WhatsApp
+              </Typography>
+              <Link
+                href="https://wa.me/+923263332888"
+                target="_blank"
+                rel="noopener"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  textDecoration: "none",
+                }}>
+                <Iconify
+                  icon="eva:message-circle-fill"
+                  sx={{
+                    color: "#ffffff",
+                    fontSize: { xs: "16px", md: "20px" },
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#ffffff",
+                    fontSize: { xs: "12px", md: "14px" },
+                  }}>
+                  +923263332888
+                </Typography>
+              </Link>
+            </Stack>
+
+            {/* Call Us */}
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ mb: 2, alignItems: "center" }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#10B981",
+                  fontWeight: "bold",
+                  minWidth: "80px",
+                  fontSize: { xs: "12px", md: "14px" },
+                }}>
+                Call Us
+              </Typography>
+              <Link
+                href="tel:+923263332888"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  textDecoration: "none",
+                }}>
+                <Iconify
+                  icon="eva:phone-fill"
+                  sx={{
+                    color: "#ffffff",
+                    fontSize: { xs: "16px", md: "20px" },
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#ffffff",
+                    fontSize: { xs: "12px", md: "14px" },
+                  }}>
+                  +923263332888
+                </Typography>
+              </Link>
+            </Stack>
+          </Grid>
+
+          {/* Quick Links Column */}
+          <Grid xs={12} md={4}>
+            {/* <Typography
+              variant="h6"
+              sx={{
+                color: "#4caf50",
+                fontWeight: "bold",
+                mb: 2,
+                fontSize: { xs: "16px", md: "18px" },
+                textTransform: "uppercase",
+              }}>
+              QUICK LINKS
+            </Typography>
+            <Box
+              sx={{
+                width: "50px",
+                height: "2px",
+                backgroundColor: "#4caf50",
+                mb: 3,
+              }}
+            /> */}
+
+            {/* <Stack spacing={1}>
+              {QUICK_LINKS.map((link) => (
+                <Link
+                  key={link.name}
+                  component={RouterLink}
+                  href={link.href}
+                  sx={{
+                    color: "#ffffff",
+                    textDecoration: "none",
+                    fontSize: { xs: "12px", md: "14px" },
+                    "&:hover": {
+                      color: "#4caf50",
+                    },
+                  }}>
+                  {link.name}
+                </Link>
+              ))}
+            </Stack> */}
+          </Grid>
+
+          {/* Customer Services Column */}
+          <Grid xs={12} md={4}>
+            <Typography
+              variant="h6"
+              sx={{
+                background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontWeight: "bold",
+                mb: 2,
+                fontSize: { xs: "16px", md: "18px" },
+                textTransform: "uppercase",
+              }}>
+              CUSTOMER SERVICES
+            </Typography>
+            <Box
+              sx={{
+                width: "50px",
+                height: "3px",
+                background: "linear-gradient(90deg, #10B981 0%, #9333EA 100%)",
+                borderRadius: "2px",
+                mb: 3,
+              }}
+            />
+
+            <Stack spacing={1} sx={{ mb: 4 }}>
+              {CUSTOMER_SERVICES.map((link) => (
+                <Link
+                  key={link.name}
+                  component={RouterLink}
+                  href={link.href}
+                  sx={{
+                    color: "#ffffff",
+                    textDecoration: "none",
+                    fontSize: { xs: "12px", md: "14px" },
+                    "&:hover": {
+                      color: "#4caf50",
+                    },
+                  }}>
+                  {link.name}
+                </Link>
+              ))}
+            </Stack>
+
+            {/* Social Links */}
+            <Typography
+              variant="h6"
+              sx={{
+                background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontWeight: "bold",
+                mb: 2,
+                fontSize: { xs: "16px", md: "18px" },
+                textTransform: "uppercase",
+              }}>
+              SOCIAL LINKS
+            </Typography>
+            <Box
+              sx={{
+                width: "50px",
+                height: "3px",
+                background: "linear-gradient(90deg, #10B981 0%, #9333EA 100%)",
+                borderRadius: "2px",
+                mb: 3,
+              }}
+            />
+
+            <Stack direction="row" spacing={2}>
+              {SOCIAL_LINKS.map((social) => (
+                <IconButton
+                  key={social.name}
+                  component="a"
+                  href={social.href}
+                  target="_blank"
+                  sx={{
+                    color: "#ffffff",
+                    background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                    borderRadius: "12px",
+                    width: { xs: "40px", md: "44px" },
+                    height: { xs: "40px", md: "44px" },
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      background: "linear-gradient(135deg, #9333EA 0%, #10B981 100%)",
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 8px 16px rgba(147, 51, 234, 0.3)",
+                    },
+                  }}>
+                  <Iconify
+                    icon={social.icon}
+                    sx={{ fontSize: { xs: "18px", md: "20px" } }}
+                  />
+                </IconButton>
+              ))}
+            </Stack>
+          </Grid>
+        </Grid>
+
+        {/* Copyright Section */}
+        <Box sx={{ mt: { xs: 4, md: 6 }, textAlign: "center" }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#ffffff",
+              fontSize: { xs: "12px", md: "14px" },
+            }}>
+            © 2025 Garage Tuned Autos. All rights reserved.
+          </Typography>
+        </Box>
+      </Container>
+
+      {/* Floating Chat Icon */}
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: { xs: "10px", md: "20px" },
+          right: { xs: "10px", md: "20px" },
+          zIndex: 1000,
+        }}>
+        <Stack spacing={1}>
+          <a
+            href="https://wa.me/923263332888"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              width: isMobile ? "40px" : "60px",
+              height: isMobile ? "40px" : "60px",
+              backgroundColor: "green",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+              cursor: "pointer",
+              textDecoration: "none",
+              transition: "all 0.3s ease",
+              border: "none",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = "#25D366";
+              e.target.style.transform = "scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = "green";
+              e.target.style.transform = "scale(1)";
+            }}>
+            <Iconify
+              icon="ic:baseline-whatsapp"
+              width={isMobile ? 22 : 30}
+              height={isMobile ? 22: 30}
+              size={isMobile ? "22px" : "50px"}
+              fontSize={isMobile ? "22px" : "50px"}
+              sx={{ color: "#ffffff", fontSize: isMobile ? "22px" : "50px" }}
+            />
+          </a>
+          
+          {/* Back to Top Button - Only show when there's scrollable content */}
+          {showBackToTop && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                scrollToTop();
+              }}
+              style={{
+                width: isMobile ? "40px" : "50px",
+                height: isMobile ? "40px" : "50px",
+                background: "linear-gradient(135deg, #10B981 0%, #9333EA 100%)",
+                borderRadius: "12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 4px 12px rgba(147, 51, 234, 0.3)",
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "all 0.3s ease",
+                border: "none",
+                outline: "none",
+                zIndex: 1001,
+                opacity: showBackToTop ? 1 : 0,
+                transform: showBackToTop ? "scale(1)" : "scale(0.8)",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = "linear-gradient(135deg, #9333EA 0%, #10B981 100%)";
+                e.target.style.transform = "scale(1.1) translateY(-4px)";
+                e.target.style.boxShadow = "0 8px 20px rgba(147, 51, 234, 0.4)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = "linear-gradient(135deg, #10B981 0%, #9333EA 100%)";
+                e.target.style.transform = "scale(1)";
+                e.target.style.boxShadow = "0 4px 12px rgba(147, 51, 234, 0.3)";
+              }}>
+              <Iconify
+                icon="eva:arrow-up-fill"
+                sx={{ color: "#ffffff", fontSize: isMobile ? "18px" : "24px" }}
+              />
+            </button>
+          )}
+        </Stack>
+      </Box>
+    </Box>
+  );
+
+  // return homePage ? simpleFooter : mainFooter;
+  return mainFooter;
+}
