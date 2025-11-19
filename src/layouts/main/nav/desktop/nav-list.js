@@ -118,7 +118,9 @@ export default function NavList({ data }) {
             zIndex: theme.zIndex.modal,
             p: theme.spacing(5, 1, 1, 3),
             top: HEADER.H_DESKTOP_OFFSET,
-            maxWidth: theme.breakpoints.values.lg,
+            width: "auto",
+            minWidth: 200,
+            maxWidth: 220,
             boxShadow: theme.customShadows.dropdown,
             // Add a larger margin-top to create a better hover bridge
             mt: -2,

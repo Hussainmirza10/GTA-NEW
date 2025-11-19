@@ -191,6 +191,10 @@ const StyledNavItem = styled(ListItemButton, {
       height: 24,
       flexShrink: 0,
       marginRight: theme.spacing(2),
+      color: '#7b1fa2', // purple-700
+      '& svg': {
+        color: '#7b1fa2', // purple-700
+      },
     },
     label: {
       ...noWrapStyles,
@@ -220,6 +224,13 @@ const StyledNavItem = styled(ListItemButton, {
       minHeight: 44,
       '& .icon': {
         ...baseStyles.icon,
+        color: '#7b1fa2', // purple-700
+        '& svg': {
+          color: '#7b1fa2', // purple-700
+        },
+        '& path': {
+          fill: '#7b1fa2', // purple-700
+        },
       },
       '& .sub-icon': {
         display: 'none',
@@ -240,13 +251,34 @@ const StyledNavItem = styled(ListItemButton, {
         color:
           theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.light,
         backgroundColor: alpha(theme.palette.primary.main, 0.08),
+        '& .icon': {
+          color: '#7b1fa2', // purple-700
+          '& svg': {
+            color: '#7b1fa2', // purple-700
+          },
+          '& path': {
+            fill: '#7b1fa2', // purple-700
+          },
+        },
         '&:hover': {
           backgroundColor: alpha(theme.palette.primary.main, 0.16),
+          '& .icon': {
+            color: '#7b1fa2', // purple-700
+          },
         },
       }),
       ...(opened && {
         color: theme.palette.text.primary,
         backgroundColor: theme.palette.action.hover,
+        '& .icon': {
+          color: '#7b1fa2', // purple-700
+          '& svg': {
+            color: '#7b1fa2', // purple-700
+          },
+          '& path': {
+            fill: '#7b1fa2', // purple-700
+          },
+        },
       }),
     }),
 
@@ -256,6 +288,13 @@ const StyledNavItem = styled(ListItemButton, {
       minHeight: 36,
       '& .icon': {
         ...baseStyles.icon,
+        color: '#7b1fa2', // purple-700
+        '& svg': {
+          color: '#7b1fa2', // purple-700
+        },
+        '& path': {
+          fill: '#7b1fa2', // purple-700
+        },
       },
       '& .sub-icon': {
         ...baseStyles.icon,
