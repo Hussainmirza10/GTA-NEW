@@ -10,7 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Badge, { badgeClasses } from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { paths } from "src/routes/paths";
 
@@ -46,7 +46,17 @@ export default function Header() {
 
   const offsetTop = useOffSetTop(HEADER.H_DESKTOP);
 
-  const { user = {} } = useAuthContext()?.user || {};
+  // Safely get user context - handle SSR/build time when context might not be available
+  // During static export/build, the auth context might not be available
+  let user = {};
+  try {
+    const authContext = useAuthContext();
+    user = authContext?.user || {};
+  } catch (error) {
+    // During SSR/build time, auth context might not be available
+    // This is expected and safe to ignore - user will be empty object
+    user = {};
+  }
 
   // Get cart data from checkout context
   const checkout = useCheckoutContext();
