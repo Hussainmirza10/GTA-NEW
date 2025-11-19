@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import { alpha } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -13,15 +19,14 @@ import { bgBlur } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
 import SvgColor from 'src/components/svg-color';
+import Iconify from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
+import { useAuthContext } from 'src/auth/hooks';
 
-import Searchbar from '../common/searchbar';
 import { NAV, HEADER } from '../config-layout';
-import SettingsButton from '../common/settings-button';
 import AccountPopover from '../common/account-popover';
-import ContactsPopover from '../common/contacts-popover';
-import LanguagePopover from '../common/language-popover';
 import NotificationsPopover from '../common/notifications-popover';
+import ChatPopover from '../common/chat-popover';
 
 // ----------------------------------------------------------------------
 
@@ -40,32 +45,72 @@ export default function Header({ onOpenNav }) {
 
   const offsetTop = offset && !isNavHorizontal;
 
+  const auth = useAuthContext();
+  const { user = {} } = auth?.user || {};
+
   const renderContent = (
     <>
-      {lgUp && isNavHorizontal && <Logo sx={{ mr: 2.5 }} />}
+      <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
+        <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" />
+      </IconButton>
 
-      {!lgUp && (
-        <IconButton onClick={onOpenNav}>
-          <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" />
-        </IconButton>
-      )}
+      <Logo sx={{ mr: 3 }} />
 
-      {/* <Searchbar /> */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          maxWidth: { xs: 300, md: 400 },
+          mx: 'auto',
+          position: 'relative',
+        }}
+      >
+        <Box
+          sx={{
+            position: 'relative',
+            borderRadius: 1,
+            backgroundColor: alpha(theme.palette.grey[500], 0.12),
+            '&:hover': {
+              backgroundColor: alpha(theme.palette.grey[500], 0.16),
+            },
+            transition: theme.transitions.create(['background-color']),
+          }}
+        >
+          <InputBase
+            fullWidth
+            placeholder="Search"
+            startAdornment={
+              <Iconify
+                icon="eva:search-fill"
+                sx={{
+                  ml: 1.5,
+                  color: 'text.disabled',
+                  width: 20,
+                  height: 20,
+                }}
+              />
+            }
+            sx={{
+              py: 1,
+              px: 1.5,
+              width: '100%',
+              '& .MuiInputBase-input': {
+                typography: 'body2',
+                padding: 0,
+              },
+            }}
+          />
+        </Box>
+      </Box>
 
       <Stack
-        flexGrow={1}
         direction="row"
         alignItems="center"
-        justifyContent="flex-end"
-        spacing={{ xs: 0.5, sm: 1 }}
+        spacing={1}
+        sx={{ ml: 'auto' }}
       >
-        {/* <LanguagePopover /> */}
+        <NotificationsPopover />
 
-        {/* <NotificationsPopover /> */}
-
-        {/* <ContactsPopover /> */}
-
-        {/* <SettingsButton /> */}
+        <ChatPopover />
 
         <AccountPopover />
       </Stack>

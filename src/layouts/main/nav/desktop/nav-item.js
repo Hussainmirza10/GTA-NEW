@@ -90,9 +90,9 @@ const StyledNavItem = styled(ListItemButton, {
     content: '""',
     borderRadius: "50%",
     position: "absolute",
-    backgroundColor: "#10B981",
+    backgroundColor: "#7b1fa2", // purple-700
     ...(active && {
-      backgroundColor: "#9333EA",
+      backgroundColor: "#7b1fa2", // purple-700
     }),
   };
 
@@ -109,16 +109,16 @@ const StyledNavItem = styled(ListItemButton, {
       }),
       "&:hover": {
         backgroundColor: "transparent",
-        color: "#10B981",
+        color: "#7b1fa2", // purple-700
         transform: "translateY(-2px)",
       },
       ...(active && {
-        color: "#9333EA",
+        color: "#7b1fa2", // purple-700
         fontWeight: theme.typography.fontWeightSemiBold,
       }),
       ...(opened && {
         opacity: 0.8,
-        color: "#10B981",
+        color: "#7b1fa2", // purple-700
       }),
     }),
 

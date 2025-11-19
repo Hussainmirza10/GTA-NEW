@@ -1,207 +1,189 @@
 'use client';
-import { m } from 'framer-motion';
-import { varFade, MotionViewport } from 'src/components/animate';
 
-import Typography from '@mui/material/Typography';
-
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { useMockedUser } from 'src/hooks/use-mocked-user';
-
-import { SeoIllustration } from 'src/assets/illustrations';
-import { _appAuthors, _appRelated, _appFeatured, _appInvoices, _appInstalled } from 'src/_mock';
-
 import { useSettingsContext } from 'src/components/settings';
-
-import AppWidget from '../app-widget';
-import AppWelcome from '../app-welcome';
-import AppFeatured from '../app-featured';
-import AppNewInvoice from '../app-new-invoice';
-import AppTopAuthors from '../app-top-authors';
-import AppTopRelated from '../app-top-related';
-import AppAreaInstalled from '../app-area-installed';
-import AppWidgetSummary from '../app-widget-summary';
-import AppCurrentDownload from '../app-current-download';
-import AppTopInstalledCountries from '../app-top-installed-countries';
 import { useAuthContext } from 'src/auth/hooks';
+
+import AppWidgetSummary from '../app-widget-summary';
+import AppReportsChart from '../app-reports-chart';
+import AppRecentActivity from '../app-recent-activity';
+import AppRecentSales from '../app-recent-sales';
+import AppBudgetReport from '../app-budget-report';
+import AppWebsiteTraffic from '../app-website-traffic';
+import AppWelcomeBanner from '../app-welcome-banner';
+import AppSellCarSteps from '../app-sell-car-steps';
+import AppAddCarGuide from '../app-add-car-guide';
 
 // ----------------------------------------------------------------------
 
+const RECENT_ACTIVITY = [
+  { time: '32 min', description: 'New car listing added: Toyota Corolla 2023' },
+  { time: '56 min', description: 'Car images uploaded for Honda Civic 2022' },
+  { time: '2 hrs', description: 'Price updated for BMW 3 Series 2024' },
+  { time: '1 day', description: 'Car listing approved: Mercedes-Benz C-Class 2023' },
+  { time: '2 days', description: 'New customer inquiry received for Ford Mustang' },
+  { time: '4 weeks', description: 'Monthly sales report generated for vehicle listings' },
+];
+
+const RECENT_SALES = [
+  { id: '#2457', customer: 'Ahmed Ali', product: 'Toyota Corolla 2023', price: 2450000, status: 'Approved' },
+  { id: '#2147', customer: 'Sara Khan', product: 'Honda Civic 2022', price: 1890000, status: 'Pending' },
+  { id: '#2049', customer: 'Usman Butt', product: 'BMW 3 Series 2024', price: 8750000, status: 'Approved' },
+  { id: '#2644', customer: 'Fatima Sheikh', product: 'Mercedes-Benz C-Class', price: 9200000, status: 'Rejected' },
+  { id: '#2644', customer: 'Hassan Malik', product: 'Ford Mustang GT 2023', price: 12500000, status: 'Approved' },
+];
+
 export default function OverviewAppView() {
-  const { user } = useAuthContext();
-
   const theme = useTheme();
-
   const settings = useSettingsContext();
+  const auth = useAuthContext();
+  const { user = {} } = auth?.user || {};
+  const isUser = user?.role === 'user';
 
+  // Customer Dashboard UI
+  if (isUser) {
+    const userName = user?.displayName || user?.name || user?.email?.split('@')[0] || 'User';
+
+    return (
+      <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+        <Grid container spacing={3}>
+          {/* Welcome Banner */}
+          <Grid xs={12}>
+            <AppWelcomeBanner userName={userName} />
+          </Grid>
+
+          {/* Sell Car Steps Section */}
+          <Grid xs={12}>
+            <AppSellCarSteps />
+          </Grid>
+
+          {/* Detailed Add Car Guide */}
+          <Grid xs={12}>
+            <AppAddCarGuide />
+          </Grid>
+        </Grid>
+      </Container>
+    );
+  }
+
+  // Admin Dashboard UI (Existing)
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Grid container spacing={3}>
-        <Grid xs={12} md={12}>
-          <AppWelcome
-            title={`Welcome 👋 \n ${user?.user?.role === 'admin' ? 'Admin' : user?.user?.name}`}
-            img={<SeoIllustration />}
-          />
-        </Grid>
-
-        <Grid xs={12} md={4}>
-         {/* z <AppFeatured list={_appFeatured} /> */}
-        </Grid>
-        <Grid xs={12} md={12}>
-        <Container component={MotionViewport} sx={{ textAlign: 'center', py: { xs: 1, md: 1 } }}>
-
-        <m.div variants={varFade().inUp}>
-        <Typography variant="h3" sx={{ my: 2 }}>
-        Sell your Car With 3 Easy & Simple Steps!
-        </Typography>
-        <Typography variant="h4" sx={{ my: 1 }}>
-        It's free and takes less than a minute
-        </Typography>
-      </m.div>
-      </Container>
-        
-        </Grid>
-
+        {/* Top Row - KPI Cards */}
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-           imgSrc="/assets/images/home/cars.svg"
-            subTitle="Add Car Information"
-            
+            title="Add Car"
+            subTitle="Information"
+            imgSrc="/assets/images/home/cars.svg"
+            total={145}
+            percent={12}
           />
         </Grid>
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
-           imgSrc="/assets/images/home/photos.svg"
-           subTitle="Upload Car Images"
+            title="Upload Car"
+            subTitle="Images"
+            imgSrc="/assets/images/home/photos.svg"
+            total={3264}
+            percent={8}
+            isCurrency
           />
         </Grid>
 
         <Grid xs={12} md={4}>
           <AppWidgetSummary
+            title="Enter Your"
+            subTitle="Selling Price"
             imgSrc="/assets/images/home/price.svg"
-            subTitle="  Enter Your Selling Price"
-         
+            total={1244}
+            percent={-12}
           />
         </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppCurrentDownload
-            title="Current Download"
+        {/* Middle Row - Charts and Activity */}
+        <Grid xs={12} md={8}>
+          <AppReportsChart
+            title="Reports"
+            subheader="Today"
             chart={{
-              series: [
-                { label: 'Mac', value: 12244 },
-                { label: 'Window', value: 53345 },
-                { label: 'iOS', value: 44313 },
-                { label: 'Android', value: 78343 },
-              ],
-            }}
-          />
-        </Grid> */}
-
-        {/* <Grid xs={12} md={6} lg={8}>
-          <AppAreaInstalled
-            title="Area Installed"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-              ],
               series: [
                 {
-                  year: '2019',
-                  data: [
-                    {
-                      name: 'Asia',
-                      data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 35, 51, 49],
-                    },
-                    {
-                      name: 'America',
-                      data: [10, 34, 13, 56, 77, 88, 99, 77, 45, 13, 56, 77],
-                    },
-                  ],
+                  name: 'Car Listings',
+                  data: [10, 41, 35, 51, 49, 62, 69],
+                  color: theme.palette.primary.main,
                 },
                 {
-                  year: '2020',
-                  data: [
-                    {
-                      name: 'Asia',
-                      data: [51, 35, 41, 10, 91, 69, 62, 148, 91, 69, 62, 49],
-                    },
-                    {
-                      name: 'America',
-                      data: [56, 13, 34, 10, 77, 99, 88, 45, 77, 99, 88, 77],
-                    },
-                  ],
+                  name: 'Revenue',
+                  data: [8, 35, 40, 45, 44, 58, 65],
+                  color: theme.palette.success.main,
+                },
+                {
+                  name: 'Customers',
+                  data: [5, 25, 30, 35, 32, 38, 42],
+                  color: theme.palette.warning.main,
                 },
               ],
             }}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} lg={8}>
-          <AppNewInvoice
-            title="New Invoice"
-            tableData={_appInvoices}
-            tableLabels={[
-              { id: 'id', label: 'Invoice ID' },
-              { id: 'category', label: 'Category' },
-              { id: 'price', label: 'Price' },
-              { id: 'status', label: 'Status' },
-              { id: '' },
-            ]}
+        <Grid xs={12} md={4}>
+          <AppRecentActivity
+            title="Recent Activity"
+            subheader="Today"
+            list={RECENT_ACTIVITY}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppTopRelated title="Top Related Applications" list={_appRelated} />
-        </Grid> */}
-
-        {/* <Grid xs={12} md={6} lg={4}>
-          <AppTopInstalledCountries title="Top Installed Countries" list={_appInstalled} />
+        {/* Bottom Row - Table and Charts */}
+        <Grid xs={12} md={6} lg={5}>
+          <AppRecentSales
+            title="Recent Car Sales"
+            subheader="Today"
+            tableData={RECENT_SALES}
+          />
         </Grid>
 
         <Grid xs={12} md={6} lg={4}>
-          <AppTopAuthors title="Top Authors" list={_appAuthors} />
+          <AppBudgetReport
+            title="Budget Report"
+            subheader="This Month"
+            chart={{
+              categories: ['Car Listings', 'Marketing', 'Vehicle Management', 'Customer Support', 'Platform Maintenance', 'Administration'],
+              series: [
+                {
+                  name: 'Allocated Budget',
+                  data: [80, 75, 70, 65, 85, 75],
+                },
+                {
+                  name: 'Actual Spending',
+                  data: [90, 85, 75, 70, 80, 70],
+                },
+              ],
+            }}
+          />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          <Stack spacing={3}>
-            <AppWidget
-              title="Conversion"
-              total={38566}
-              icon="solar:user-rounded-bold"
-              chart={{
-                series: 48,
-              }}
-            />
-
-            <AppWidget
-              title="Applications"
-              total={55566}
-              icon="fluent:mail-24-filled"
-              color="info"
-              chart={{
-                series: 75,
-              }}
-            />
-          </Stack>
-        </Grid> */}
+        <Grid xs={12} md={6} lg={3}>
+          <AppWebsiteTraffic
+            title="Website Traffic"
+            subheader="Today"
+            chart={{
+              series: [
+                { label: 'Search Engine', value: 45, color: theme.palette.primary.main },
+                { label: 'Direct Traffic', value: 25, color: theme.palette.warning.main },
+                { label: 'Social Media', value: 15, color: theme.palette.text.secondary },
+                { label: 'Referral Links', value: 10, color: theme.palette.info.main },
+                { label: 'Email Campaigns', value: 5, color: theme.palette.success.main },
+              ],
+            }}
+          />
+        </Grid>
       </Grid>
     </Container>
   );

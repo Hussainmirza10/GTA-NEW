@@ -25,7 +25,7 @@ export const emailConfig = {
   adminEmails: process.env.ADMIN_EMAILS ? 
     process.env.ADMIN_EMAILS.split(',').map(email => email.trim()) : 
     ['garagetunedautos01@gmail.com'],
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3033'
+  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173'
 };
 
 // Send email function

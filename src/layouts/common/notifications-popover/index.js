@@ -33,17 +33,17 @@ const TABS = [
   {
     value: "all",
     label: "All",
-    count: 22,
+    count: 9,
   },
   {
     value: "unread",
     label: "Unread",
-    count: 12,
+    count: 4,
   },
   {
     value: "archived",
     label: "Archived",
-    count: 10,
+    count: 5,
   },
 ];
 
@@ -165,7 +165,7 @@ export default function NotificationsPopover() {
           backdrop: { invisible: true },
         }}
         PaperProps={{
-          sx: { width: 1, maxWidth: 420 },
+          sx: { width: 1, maxWidth: 400 },
         }}>
         {renderHead}
 
@@ -186,9 +186,9 @@ export default function NotificationsPopover() {
 
         {renderList}
 
-        <Box sx={{ p: 1 }}>
-          <Button fullWidth size="large">
-            View All
+        <Box sx={{ p: 2 }}>
+          <Button fullWidth size="large" variant="contained">
+            View All Notifications
           </Button>
         </Box>
       </Drawer>

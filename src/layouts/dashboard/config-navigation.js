@@ -24,7 +24,7 @@ export const ROLES = {
 const icon = (name) => (
   <SvgColor
     src={`/assets/icons/navbar/${name}.svg`}
-    sx={{ width: 1, height: 1 }}
+    sx={{ width: 1, height: 1, color: '#7b1fa2' }}
   />
 );
 
@@ -95,102 +95,114 @@ export function useNavData() {
         items: [
           // ECOMMERCE
           {
-            title: t("ecommerce"),
+            title: "E-Commerce",
             roles: [ROLES.ADMIN],
             path: paths.dashboard.general.ecommerce,
             icon: ICONS.ecommerce,
             children: [
               {
-                title: t("products"),
+                title: "Products",
                 roles: [ROLES.ADMIN],
                 path: paths.dashboard.product.root,
                 icon: ICONS.product,
                 children: [
-                  { title: t("list"), path: paths.dashboard.product.root },
-                  { title: t("create"), path: paths.dashboard.product.new },
+                  {
+                    title: "List of all my products",
+                    path: paths.dashboard.product.root,
+                    roles: [ROLES.ADMIN],
+                  },
+                  {
+                    title: "Create a new product",
+                    path: paths.dashboard.product.new,
+                    roles: [ROLES.ADMIN],
+                  },
                 ],
               },
               {
-                title: t("Categories"),
+                title: "Categories",
                 roles: [ROLES.ADMIN],
                 path: paths.dashboard.category.root,
-                icon: <CategoryIcon />,
+                icon: <CategoryIcon sx={{ color: '#7b1fa2' }} />,
                 children: [
-                  { title: t("list"), path: paths.dashboard.category.list },
-                  { title: t("create"), path: paths.dashboard.category.add },
+                  {
+                    title: "List of all my categories",
+                    path: paths.dashboard.category.list,
+                    roles: [ROLES.ADMIN],
+                  },
+                  {
+                    title: "Create a new category",
+                    path: paths.dashboard.category.add,
+                    roles: [ROLES.ADMIN],
+                  },
                 ],
               },
               {
-                title: t("Attribute"),
+                title: "Attribute",
                 roles: [ROLES.ADMIN],
                 path: paths.dashboard.attribute.root,
-                icon: <AttributionIcon />,
+                icon: <AttributionIcon sx={{ color: '#7b1fa2' }} />,
                 children: [
                   {
-                    title: t("list"),
+                    title: "List of all my attributes",
                     path: paths.dashboard.attribute.list,
                     roles: [ROLES.ADMIN],
                   },
-                  { title: t("create"), path: paths.dashboard.attribute.add },
+                  {
+                    title: "Create a new attribute",
+                    path: paths.dashboard.attribute.add,
+                    roles: [ROLES.ADMIN],
+                  },
                 ],
               },
               {
-                title: t("Tax"),
+                title: "Tax",
                 roles: [ROLES.ADMIN],
                 path: paths.dashboard.tax.root,
-                icon: <ReceiptIcon />,
+                icon: <ReceiptIcon sx={{ color: '#7b1fa2' }} />,
                 children: [
                   {
-                    title: t("list"),
+                    title: "List of all my taxes",
                     path: paths.dashboard.tax.list,
                     roles: [ROLES.ADMIN],
                   },
-                  { title: t("create"), path: paths.dashboard.tax.add },
+                  {
+                    title: "Create a new tax",
+                    path: paths.dashboard.tax.add,
+                    roles: [ROLES.ADMIN],
+                  },
                 ],
               },
               {
-                title: t("Coupons"),
+                title: "Coupons",
                 roles: [ROLES.ADMIN],
                 path: paths.dashboard.coupon.root,
-                icon: <DiscountIcon />,
+                icon: <DiscountIcon sx={{ color: '#7b1fa2' }} />,
                 children: [
                   {
-                    title: t("list"),
+                    title: "List of all my coupons",
                     path: paths.dashboard.coupon.list,
                     roles: [ROLES.ADMIN],
                   },
-                  { title: t("create"), path: paths.dashboard.coupon.add },
+                  {
+                    title: "Create a new coupon",
+                    path: paths.dashboard.coupon.add,
+                    roles: [ROLES.ADMIN],
+                  },
                 ],
               },
               {
-                title: t("orders"),
+                title: "Orders",
+                roles: [ROLES.ADMIN],
                 path: paths.dashboard.order.root,
                 icon: ICONS.order,
                 children: [
                   {
-                    title: t("list"),
+                    title: "List of all my orders",
                     path: paths.dashboard.order.list,
                     roles: [ROLES.ADMIN],
                   },
-                  // { title: t("My Orders"), path: paths.dashboard.order.new, roles: [ROLES.USER] },
                 ],
               },
-
-              // {
-              //   title: t("shipping"),
-              //   path: paths.dashboard.shipping.root,
-              //   icon: <LocalShippingIcon />,
-              //   children: [
-              //     {
-              //       title: t("methods"),
-              //       path: paths.dashboard.shipping.methods.root,
-              //     },
-              //     {
-              //       title: t("settings"),
-              //       path: paths.dashboard.shipping.settings,
-              //     },
-              //   ],
-              // },
             ],
           },
           // Cars section
@@ -201,12 +213,12 @@ export function useNavData() {
             icon: ICONS.user,
             children: [
               {
-                title: "My",
+                title: "My Cars",
                 path: paths.dashboard.cars.my.list,
                 roles: [ROLES.USER],
               },
               {
-                title: "Add",
+                title: "Add new Cars",
                 path: paths.dashboard.cars.my.add,
                 roles: [ROLES.USER, ROLES.ADMIN],
               },
@@ -225,12 +237,12 @@ export function useNavData() {
             icon: ICONS.user,
             children: [
               {
-                title: "My",
+                title: "My Videos",
                 path: paths.dashboard.video.my.list,
                 roles: [ROLES.USER, ROLES.ADMIN],
               },
               {
-                title: "Add",
+                title: "Add new Video",
                 path: paths.dashboard.video.my.add,
                 roles: [ROLES.USER, ROLES.ADMIN],
               },
@@ -312,9 +324,19 @@ export function useNavData() {
             path: paths.dashboard.trackOrder,
             icon: ICONS.order,
             children: [
-              // { title: "List", path: paths.dashboard.order.list, },
               { title: "Track Order", path: paths.dashboard.trackOrder, roles: [ROLES.USER] },
             ],
+          },
+        ],
+      },
+      // PAGES
+      {
+        subheader: "PAGES",
+        items: [
+          {
+            title: "Profile",
+            path: paths.dashboard.user.profile,
+            icon: ICONS.user,
           },
         ],
       },
