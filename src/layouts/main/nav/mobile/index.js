@@ -19,7 +19,17 @@ import { paths } from "src/routes/paths";
 // ----------------------------------------------------------------------
 
 export default function NavMobile({ data }) {
-  const { user = {} } = useAuthContext()?.user || {};
+  // Safely get user context - handle SSR/build time when context might not be available
+  // During static export/build, the auth context might not be available
+  let user = {};
+  try {
+    const authContext = useAuthContext();
+    user = authContext?.user || {};
+  } catch (error) {
+    // During SSR/build time, auth context might not be available
+    // This is expected and safe to ignore - user will be empty object
+    user = {};
+  }
   const pathname = usePathname();
 
   const [openMenu, setOpenMenu] = useState(false);
